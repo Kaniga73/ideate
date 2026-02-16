@@ -1,0 +1,170 @@
+*{
+  box-sizing:border-box;
+  margin:0;
+  font-family: "Segoe UI", sans-serif;
+}
+body{
+  margin:0;
+}
+
+.page{
+  height:100vh;
+  width:210vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#ffffff;
+}
+/* CARD */
+.card{
+  width:900px;
+  height:520px;
+  display:flex;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 2px 10px #d1d4d4;
+  background:white;
+}
+
+/* LEFT SIDE */
+.left{
+  flex:1;
+  padding:50px;
+  background:linear-gradient(135deg,#f7fbfd,#f7fbfd);
+}
+
+.brand{
+  font-weight:700;
+  font-size:22px;
+}
+
+.left h1{
+  font-size:40px;
+  line-height:1.2;
+  margin-bottom:20px;
+}
+
+
+.tagline{
+  color:#47b5bd;
+  font-size:16px;
+  margin-bottom:40px;
+
+}
+.greatmindstext{
+    color:#58d9e2;
+}
+.logintext{
+    color:#47b5bd;
+    font-weight: 400;
+}
+/* RIGHT SIDE */
+.right{
+  flex:1;
+  padding:60px;
+}
+
+.right h2{
+  margin-bottom:20px;
+}
+
+/* SWITCH */
+.switch{
+  position:relative;
+  display:flex;
+  background:#eef2f7;
+  border-radius:50px;
+  padding:5px;
+  margin-bottom:25px;
+}
+
+.switch button{
+  flex:1;
+  border:none;
+  outline:none;
+  background:none;
+  padding:10px;
+  cursor:pointer;
+  z-index:2;
+  font-weight:600;
+}
+
+.slider{
+  position:absolute;
+  top:5px;
+  bottom:5px;
+  border:none;
+  width:50%;
+  background:white;
+  border-radius:50px;
+  transition:0.3s;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+.slider.employee{ left:5px; }
+.slider.admin{ left:50%; }
+
+/* FORM */
+label{
+  display:block;
+  margin-top:15px;
+  margin-bottom:6px;
+  font-size:14px;
+  color:#555;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #ddd;
+  outline:none;
+}
+input:hover,input:active{
+    border-color: #58d9e2 ;
+}
+.password-box{
+  position:relative;
+}
+
+.password-box span{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  cursor:pointer;
+}
+
+/* REMEMBER */
+.remember{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:15px 0;
+  font-size:14px;
+}
+
+/* BUTTON */
+.login-btn{
+  width:60%;
+  padding:14px;
+  margin-top: 40px;
+  margin-left: 60px;
+  border:none;
+  border-radius:12px;
+  background:#58d9e2;
+  color:white;
+  font-weight:600;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.login-btn:hover{
+    background:#46adb4;
+    transform: scale(1.01);
+}
+.login-btn:active{
+outline:none;
+transform: scale(.9);
+}
