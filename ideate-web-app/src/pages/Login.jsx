@@ -29,7 +29,7 @@ export default function LoginPage() {
           <div className="brand">
             <img src={companyLogo} alt="Company Logo" className="companylogo" />
             <h1 >
-              Where <span className="greatmindstext">Great Minds</span> Meet
+              Where <span className="greatmindstext">Great Minds</span> Meet!
             </h1>
             <p className="logintext">Unlocking the collective intelligence of our organization to drive meaningful innovation and sustainable growth.</p>
 
@@ -40,7 +40,6 @@ export default function LoginPage() {
         {/* RIGHT SECTION */}
         <div className="right">
 
-          <h2>Welcome to Ideate</h2>
 
           {/* Sliding Switch */}
           <div className="switch">
@@ -64,7 +63,7 @@ export default function LoginPage() {
 
 
 
-            <button className="login-btn">Login</button>
+            <button className="login-btn" >Login</button>
 
           </form>
 
