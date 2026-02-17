@@ -46,16 +46,16 @@ body{
 
 
 .tagline{
-  color:#47b5bd;
+  color:#2d77a8;
   font-size:16px;
   margin-bottom:40px;
 
 }
 .greatmindstext{
-    color:#58d9e2;
+    color:#4ac7f5;
 }
 .logintext{
-    color:#47b5bd;
+    color:#2d77a8;
     font-weight: 400;
 }
 /* RIGHT SIDE */
@@ -121,7 +121,7 @@ input{
   outline:none;
 }
 input:hover,input:active{
-    border-color: #58d9e2 ;
+    border-color: #75d5f2e3 ;
 }
 .password-box{
   position:relative;
@@ -152,7 +152,7 @@ input:hover,input:active{
   margin-left: 60px;
   border:none;
   border-radius:12px;
-  background:#58d9e2;
+  background:#4ac7f5;
   color:white;
   font-weight:600;
   font-size:16px;
@@ -161,7 +161,7 @@ input:hover,input:active{
 }
 
 .login-btn:hover{
-    background:#46adb4;
+    background:#6FD4F8;
     transform: scale(1.01);
 }
 .login-btn:active{
