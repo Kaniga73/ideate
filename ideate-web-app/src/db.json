@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "loginId": "emp1",
+      "password": "123",
+      "role": "employee",
+      "name": "kavi"
+    },
+    {
+      "id": 1,
+      "loginId": "emp2",
+      "password": "123",
+      "role": "employee",
+      "name": "kani"
+    },
+    {
+      "id": 1,
+      "loginId": "emp3",
+      "password": "123",
+      "role": "employee",
+      "name": "nethra"
+    },
+    {
+      "id": 2,
+      "loginId": "admin",
+      "password": "123",
+      "role": "admin",
+      "name": "Administrator"
+    }
+  ]
+}

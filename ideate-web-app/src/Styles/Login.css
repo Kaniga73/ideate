@@ -161,13 +161,31 @@ input:hover,input:active{
   font-size:16px;
   cursor:pointer;
   transition:0.2s;
+  outline:none;
+  box-shadow:none;
 }
 
 .login-btn:hover{
     background:#6FD4F8;
     transform: scale(1.01);
+    outline:none;
+    border:none;
+    box-shadow:none;
 }
 .login-btn:active{
-outline:none;
-transform: scale(.9);
+  outline:none;
+  border:none;
+  transform: scale(.9);
+  box-shadow:none;
+}
+
+.login-btn:focus{
+  outline:none;
+  border:none;
+  box-shadow:none;
+}
+.error{
+  color:rgb(223, 12, 12);
+  margin-top:10px;
+  font-size:12px;
 }
