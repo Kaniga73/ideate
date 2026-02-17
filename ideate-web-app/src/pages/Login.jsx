@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "../styles/Login.css";
+import companyLogo from "../assets/companyLogo.png";
+
 
 export default function LoginPage() {
 
@@ -7,9 +9,9 @@ export default function LoginPage() {
   const [showPass, setShowPass] = useState(false);
 
   const idLabel = role === "admin" ? "Admin ID" : "Employee ID";
-const idPlaceholder = role === "admin"
-  ? "Enter Admin ID"
-  : "Enter Employee ID";
+  const idPlaceholder = role === "admin"
+    ? "Enter Admin ID"
+    : "Enter Employee ID";
 
 
   const handleSubmit = (e) => {
@@ -24,17 +26,14 @@ const idPlaceholder = role === "admin"
 
         {/* LEFT SECTION */}
         <div className="left">
-          <div className="brand">💡 Ideate</div>
-          <p className="tagline">
-            Think • Share • Grow
-          </p>
+          <div className="brand">
+            <img src={companyLogo} alt="Company Logo" className="companylogo" />
+            <h1 >
+              Where <span className="greatmindstext">Great Minds</span> Meet
+            </h1>
+            <p className="logintext">Unlocking the collective intelligence of our organization to drive meaningful innovation and sustainable growth.</p>
 
-          <h1>
-            Where <span className="greatmindstext">Great Minds</span> Meet
-          </h1>
-          <p className="logintext">Unlocking the collective intelligence of our organization to drive meaningful innovation and sustainable growth.</p>
-
-          
+          </div>
         </div>
 
 
@@ -46,8 +45,8 @@ const idPlaceholder = role === "admin"
           {/* Sliding Switch */}
           <div className="switch">
             <div className={`slider ${role}`} />
-            <button onClick={()=>setRole("employee")}>Employee</button>
-            <button onClick={()=>setRole("admin")}>Admin</button>
+            <button onClick={() => setRole("employee")}>Employee</button>
+            <button onClick={() => setRole("admin")}>Admin</button>
           </div>
 
           <form onSubmit={handleSubmit}>
@@ -63,7 +62,7 @@ const idPlaceholder = role === "admin"
               />
             </div>
 
-            
+
 
             <button className="login-btn">Login</button>
 
