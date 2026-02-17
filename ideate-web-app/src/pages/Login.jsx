@@ -11,6 +11,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const [successMsg, setSuccessMsg] = useState("");
   const idLabel = role === "admin" ? "Admin ID" : "Employee ID";
   const idPlaceholder =
     role === "admin" ? "Enter Admin ID" : "Enter Employee ID";
@@ -32,8 +33,12 @@ export default function LoginPage() {
       }
 
       const user = data[0];
+setSuccessMsg(`Welcome ${user.name}!`);
 
-      alert(`Welcome ${user.name} `);
+setTimeout(() => {
+  setSuccessMsg("");
+}, 3000);
+
       console.log("Logged in user:", user);
 
       // Later we will redirect to dashboard
@@ -45,6 +50,7 @@ export default function LoginPage() {
 
   return (
     <div className="page">
+       {successMsg && <div className="success-toast">{successMsg}</div>}
       <div className="card">
 
         {/* LEFT SECTION */}

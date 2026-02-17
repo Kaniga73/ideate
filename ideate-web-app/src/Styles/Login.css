@@ -184,8 +184,40 @@ input:hover,input:active{
   border:none;
   box-shadow:none;
 }
+
+
+/* For invalid credentials login */
 .error{
   color:rgb(223, 12, 12);
   margin-top:10px;
   font-size:12px;
+}
+
+
+/* alert animations */
+.success-toast{
+  position:fixed;
+  top:25px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#2af374;
+  color:white;
+  padding:14px 26px;
+  border-radius:10px;
+  font-weight:500;
+  box-shadow:0 8px 25px rgba(0,0,0,0.15);
+  animation:toastSlide 0.45s ease;
+  z-index:9999;
+}
+
+/* entry animation */
+@keyframes toastSlide{
+  from{
+    opacity:0;
+    transform:translate(-50%,-20px);
+  }
+  to{
+    opacity:1;
+    transform:translate(-50%,0);
+  }
 }
