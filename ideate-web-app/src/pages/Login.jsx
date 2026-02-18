@@ -1,8 +1,11 @@
 import { useState } from "react";
 import "../styles/Login.css";
 import companyLogo from "../assets/companyLogo.png";
+import { useNavigate } from "react-router-dom";
+
 
 export default function LoginPage() {
+   const navigate = useNavigate(); 
 
   const [role, setRole] = useState("employee");
   const [loginId, setLoginId] = useState("");
@@ -44,9 +47,13 @@ export default function LoginPage() {
 
       setSuccessMsg(`Welcome ${matchedUser.name}!`);
 
-      setTimeout(() => {
-        setSuccessMsg("");
-      }, 3000);
+        setTimeout(() => {
+      if (role === "employee") {
+        navigate("/employee-dashboard");
+      } else {
+        navigate("/admin-dashboard");
+      }
+    }, 1000);
 
     } catch (err) {
       console.error("FETCH ERROR:", err);
