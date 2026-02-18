@@ -5,13 +5,11 @@ import companyLogo from "../assets/companyLogo.png";
 export default function LoginPage() {
 
   const [role, setRole] = useState("employee");
-  const [showPass, setShowPass] = useState(false);
-
   const [loginId, setLoginId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
   const [successMsg, setSuccessMsg] = useState("");
+
   const idLabel = role === "admin" ? "Admin ID" : "Employee ID";
   const idPlaceholder =
     role === "admin" ? "Enter Admin ID" : "Enter Employee ID";
@@ -20,37 +18,46 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
 
+    const cleanLoginId = loginId.trim().toLowerCase();
+    const cleanPassword = password.trim();
+
     try {
+      // ✅ fetch only by role
       const response = await fetch(
-        `http://localhost:3001/users?loginId=${loginId}&password=${password}&role=${role}`
+        `http://127.0.0.1:3001/users?role=${role}`
       );
 
-      const data = await response.json();
+      const users = await response.json();
+      console.log("Users from server:", users);
 
-      if (data.length === 0) {
+      // ✅ check manually
+      const matchedUser = users.find(
+        (user) =>
+          user.loginId.toLowerCase() === cleanLoginId &&
+          user.password === cleanPassword
+      );
+
+      if (!matchedUser) {
         setError("Invalid credentials");
         return;
       }
 
-      const user = data[0];
-setSuccessMsg(`Welcome ${user.name}!`);
+      setSuccessMsg(`Welcome ${matchedUser.name}!`);
 
-setTimeout(() => {
-  setSuccessMsg("");
-}, 3000);
-
-      console.log("Logged in user:", user);
-
-      // Later we will redirect to dashboard
+      setTimeout(() => {
+        setSuccessMsg("");
+      }, 3000);
 
     } catch (err) {
+      console.error("FETCH ERROR:", err);
       setError("Server not running");
     }
   };
 
   return (
     <div className="page">
-       {successMsg && <div className="success-toast">{successMsg}</div>}
+      {successMsg && <div className="success-toast">{successMsg}</div>}
+
       <div className="card">
 
         {/* LEFT SECTION */}
@@ -73,7 +80,6 @@ setTimeout(() => {
         {/* RIGHT SECTION */}
         <div className="right">
 
-          {/* Sliding Switch */}
           <div className="switch">
             <div className={`slider ${role}`} />
             <button type="button" onClick={() => setRole("employee")}>
@@ -98,7 +104,7 @@ setTimeout(() => {
             <label>Password</label>
             <div className="password-box">
               <input
-                type={showPass ? "text" : "password"}
+                type="password"
                 placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

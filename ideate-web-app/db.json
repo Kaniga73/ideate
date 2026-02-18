@@ -5,21 +5,21 @@
       "loginId": "emp1",
       "password": "123",
       "role": "employee",
-      "name": "kavipriya"
+      "name": "Kavipriya"
     },
     {
       "id": 2,
       "loginId": "emp2",
       "password": "123",
       "role": "employee",
-      "name": "kaniga"
+      "name": "Kaniga"
     },
     {
       "id": 3,
       "loginId": "emp3",
       "password": "123",
       "role": "employee",
-      "name": "nethra"
+      "name": "Nethra"
     },
     {
       "id": 4,
