@@ -13,6 +13,7 @@ function App() {
         <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
           <Route path="/submit-idea" element={<Submit />} />
         
+        
       </Routes>
     </BrowserRouter>
   );
