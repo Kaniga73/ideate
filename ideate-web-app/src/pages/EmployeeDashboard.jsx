@@ -118,6 +118,8 @@ function StartHereCard({ onSubmit }) {
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function EmployeeDashboard() {
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const navigate = useNavigate();
 
   const [search, setSearch] = useState("");
@@ -138,7 +140,7 @@ export default function EmployeeDashboard() {
     <div className="dashboard">
 
       {/* Navbar */}
-      <Navbar user={{ name: "Alex Morgan", role: "Product Lead" }} />
+      <Navbar user={user} />
 
       {/* Page Body */}
       <div className="page-body">

@@ -44,11 +44,12 @@ export default function LoginPage() {
         setError("Invalid credentials");
         return;
       }
-
+      localStorage.setItem("user", JSON.stringify(matchedUser));
       setSuccessMsg(`Welcome ${matchedUser.name}!`);
 
         setTimeout(() => {
       if (role === "employee") {
+         
         navigate("/employee-dashboard");
       } else {
         navigate("/admin-dashboard");

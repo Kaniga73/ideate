@@ -3,7 +3,7 @@ import "../Styles/Navbar.css";
 import logo from "../assets/logo.png"; 
 
 
-export default function Navbar({ user = { name: "Alex Morgan", role: "Product Lead" } }) {
+export default function Navbar({ user }) {
 
   function getInitials(name = "") {
     return name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
@@ -61,19 +61,21 @@ export default function Navbar({ user = { name: "Alex Morgan", role: "Product Le
 
         <div className="navbar__user">
           <div>
-            <div className="navbar__user-name">{user.name}</div>
-            <div className="navbar__user-role">{user.role}</div>
+            <div className="navbar__user-name">{user?.name || "Guest"}</div>
+            <div className="navbar__user-role">{user?.role || ""}</div>
+
           </div>
           <div
             className="navbar__avatar"
             style={{
-              backgroundColor: avatarColor(user.name),
+              backgroundColor: avatarColor(user?.name || "G"),
+
               width: 38,
               height: 38,
               fontSize: 38 * 0.36,
             }}
           >
-            {getInitials(user.name)}
+            {getInitials(user?.name)}
           </div>
         </div>
       </div>
