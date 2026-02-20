@@ -115,7 +115,7 @@ export default function IdeaCard({ idea, onDetails }) {
             onDetails?.(idea.id);
           }}
         >
-          Details
+          View Details
         </button>
       </div>
     </div>

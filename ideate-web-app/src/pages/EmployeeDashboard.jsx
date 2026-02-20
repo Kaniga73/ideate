@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import IdeaCard from "../components/IdeaCard";   // ✅ imported component
 import "../Styles/EmployeeDashboard.css";
+import IdeateLogo from "../assets/IdeateLogo.png";   // ✅ imported image
 
 
 // ─── Mock Data ────────────────────────────────────────────────────────────────
@@ -86,21 +87,12 @@ function StartHereCard({ onSubmit }) {
   return (
     <div className="start-here-card">
       <div className="start-here-card__icon-wrap">
-        <svg
-          width="26"
-          height="26"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#3b82f6"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M12 2a7 7 0 0 1 7 7c0 2.5-1.3 4.7-3.3 6L15 17H9l-.7-2C6.3 13.7 5 11.5 5 9a7 7 0 0 1 7-7z" />
-          <line x1="9" y1="21" x2="15" y2="21" />
-          <line x1="10" y1="21" x2="10" y2="17" />
-          <line x1="14" y1="21" x2="14" y2="17" />
-        </svg>
+        <img
+          src={IdeateLogo}
+          alt="Idea"
+          className="start-here-card__icon"
+        />
+          
       </div>
 
       <h3 className="start-here-card__title">Have a better idea?</h3>
@@ -197,7 +189,9 @@ export default function EmployeeDashboard() {
 
 
         {/* Ideas Grid */}
+
         <div className="ideas-grid">
+           <StartHereCard onSubmit={() => navigate("/submit-idea")} />
           {filteredIdeas.map((idea) => (
             <IdeaCard
               key={idea.id}
@@ -206,7 +200,7 @@ export default function EmployeeDashboard() {
             />
           ))}
 
-          <StartHereCard onSubmit={() => navigate("/submit-idea")} />
+          
         </div>
 
 
