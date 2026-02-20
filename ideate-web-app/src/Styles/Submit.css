@@ -1,34 +1,34 @@
 /* Page Background */
 .submit-container {
+  position: relative;   /* IMPORTANT */
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #ffffff;
 }
-
 /* Card */
 .submit-card {
   position: relative;
-  width: 480px;
+  width: 750px;         /* Increased width */
+  min-height: 550px;    /* Increased height */
   background: #f7fbfd;
-  padding: 40px 35px;
+  padding: 50px 45px;   /* More inner spacing */
   border-radius: 12px;
   box-shadow: 0 6px 15px #d1d4d4;
 }
-
 /* Back Button */
-.back-btn {
+.back-btn-outside {
   position: absolute;
-  top: 15px;
-  left: 18px;
-  font-size: 22px;
+  top: 30px;
+  left: 40px;
+  font-size: 24px;
   cursor: pointer;
   color: #555;
   transition: 0.2s ease;
 }
 
-.back-btn:hover {
+.back-btn-outside:hover {
   color: #4ac7f5;
   transform: translateX(-3px);
 }
@@ -78,9 +78,11 @@
 
 /* Submit Button */
 .submit-btn {
-  width: 100%;
-  margin-top: 10px;
-  padding: 10px;
+  display: block;
+  width: 180px;          /* fixed button size */
+  margin-top: 20px;
+  margin-left: auto;     /* pushes button to right */
+  padding: 12px;
   background: #4ac7f5;
   color: white;
   border: none;
@@ -89,7 +91,6 @@
   transition: 0.3s ease;
   font-weight: 500;
 }
-
-.submit-btn:hover {
-  background: #6fd4f8;
-}
+       .submit-btn:hover { 
+        background: #6fd4f8;
+       }
