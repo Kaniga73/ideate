@@ -6,7 +6,7 @@ import logo from "../assets/logo.png";
 export default function Navbar({ user }) {
 
   const navigate = useNavigate();
-  const location = useLocation(); // ✅ get current route
+  const location = useLocation(); //get current route
 
   function getInitials(name = "") {
     return name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
