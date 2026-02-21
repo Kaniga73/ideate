@@ -18,7 +18,7 @@ const statusClass = {
   NEW: "status-badge--new",
 };
 
-function StatusBadge({ status }) {
+export function StatusBadge({ status }) {
   return (
     <span className={`status-badge ${statusClass[status] || "status-badge--new"}`}>
       {status}
@@ -42,7 +42,7 @@ function Avatar({ name, size = 36 }) {
   );
 }
 
-function ProgressBar({ value, max }) {
+export function ProgressBar({ value, max }) {
   const pct = max > 0 ? Math.min((value / max) * 100, 100) : 0;
   return (
     <div className="progress-bar">
