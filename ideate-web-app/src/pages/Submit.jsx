@@ -7,44 +7,59 @@ import "../styles/Submit.css";
 const Submit = () => {
   const navigate = useNavigate();
 
-  const employee = {
-    name: "Kavi Priya",
-    role: "Software Developer"
-  };
+const employee =
+  JSON.parse(localStorage.getItem("user")) ||
+  { name: "Guest", role: "Employee" };
 
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!title || !category || !description) {
-      Swal.fire({
-        icon: "warning",
-        title: "Please fill all fields!",
-        confirmButtonColor: "#4ac7f5"
-      });
-      return;
-    }
-
-    const newIdea = {
-      title,
-      category,
-      description,
-      employeeName: employee.name,
-      role: employee.role
-    };
-
+  if (!title || !category || !description) {
     Swal.fire({
-      icon: "success",
-      title: "Idea Submitted Successfully!",
-      text: "Your idea is now visible in dashboard.",
+      icon: "warning",
+      title: "Please fill all fields!",
       confirmButtonColor: "#4ac7f5"
-    }).then(() => {
-      navigate("/employee-dashboard", { state: { newIdea } });
     });
+    return;
+  }
+
+  const newIdea = {
+    id: Date.now(),
+    title,
+    category,
+    description,
+    status: "PENDING",
+    upvotes: 0,
+    pledgedHours: 0,
+    totalHours: 100,
+    author: employee.name,
+    department: employee.role,
+    postedAt: "Just now",
   };
+
+  //  Get existing ideas
+  const existingIdeas =
+    JSON.parse(localStorage.getItem("ideas")) || [];
+
+  // Add new idea
+  const updatedIdeas = [newIdea, ...existingIdeas];
+
+  // Save back
+  localStorage.setItem("ideas", JSON.stringify(updatedIdeas));
+
+  Swal.fire({
+    icon: "success",
+    title: "Idea Submitted Successfully!",
+    text: "Your idea is now visible in dashboard.",
+    confirmButtonColor: "#4ac7f5"
+  }).then(() => {
+    navigate("/employee-dashboard");
+  });
+};
 
   return (
   <div className="submit-container">
