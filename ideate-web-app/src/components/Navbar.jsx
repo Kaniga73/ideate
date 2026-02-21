@@ -25,9 +25,7 @@ export default function Navbar({ user }) {
         <div className="navbar__logo-icon">
           <img src={logo} alt="Ideate Logo" className="navbar__logo-img" />
         </div>
-        <div className="Logo-text">
-          <h1 className="font">ideate</h1>
-        </div>
+        
       </div>
 
       {/* Center Links */}
