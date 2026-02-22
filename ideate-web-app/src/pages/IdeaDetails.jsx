@@ -244,10 +244,7 @@ export default function IdeaDetails() {
                 </div>
                 <button
                   className={`icon-btn ${isFavorite ? "favorite-active" : ""}`}
-                  onClick={handleFavorite}
-                >
-                   Fav
-                </button>
+                  onClick={handleFavorite}>Fav</button>
               </div>
             </div>
 
@@ -293,7 +290,7 @@ export default function IdeaDetails() {
                   <div className="comment-time">{comment.timestamp}</div>
                   <div className="comment-text">{comment.text}</div>
                   <button className="reply-btn" onClick={() => setReplyingTo(comment.id)}>
-                    💬 Reply
+                     Reply
                   </button>
                   
                   {/* Replies */}
@@ -381,7 +378,7 @@ export default function IdeaDetails() {
             
             <p className="card-text">{progress.toFixed(0)}% goal reached</p>
             <button className="follow-btn" onClick={handleFollowUpdates}>
-              {isFollowing ? "✓ Following Updates" : "📬 Follow Updates"}
+              {isFollowing ? "✓ Following Updates" : " Follow Updates"}
             </button>
           </div>
 

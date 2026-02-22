@@ -243,11 +243,7 @@ body {
   font-size: var(--font-size-base);
   cursor: pointer;
   color: var(--text-secondary);
-  font-weight: 500;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  white-space: nowrap;
-  position: relative;
-  overflow: hidden;
 }
 
 .icon-btn:hover {
@@ -332,6 +328,7 @@ body {
   border: 1px solid var(--color-blue-200);
   box-shadow: 0 2px 4px rgba(2, 132, 199, 0.1);
   transition: all 0.3s ease;
+  width:fit-content;
 }
 
 .idea-title {
@@ -974,7 +971,6 @@ input[type="range"]::-moz-range-thumb {
 
   .category {
     font-size: 11px;
-    padding: 5px 10px;
   }
 
   .section h3 {
@@ -1199,10 +1195,8 @@ input[type="range"]::-moz-range-thumb {
   }
 
   .icon-btn {
-    padding: 6px 8px;
-    font-size: 12px;
-    flex: 1;
-    min-width: 60px;
+    padding: 7px 10px;
+    font-size: 13px;
   }
 
   .icon-btn:hover {
