@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import "../Styles/IdeaDetails.css";
-import "../Styles/SideCard.css";
+import "../Styles/IdeaDetailsView.css";
 
 export default function IdeaDetails() {
   const { id } = useParams();
@@ -13,6 +12,9 @@ export default function IdeaDetails() {
   const [commentText, setCommentText] = useState("");
   const [isFavorite, setIsFavorite] = useState(false);
   const [showShareMenu, setShowShareMenu] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [replyingTo, setReplyingTo] = useState(null);
+  const [replyText, setReplyText] = useState("");
   const user = JSON.parse(localStorage.getItem("user")) || { id: 1, name: "Guest" };
 
   // Initialize data from localStorage
@@ -96,6 +98,8 @@ export default function IdeaDetails() {
       author: user.name,
       text: commentText,
       timestamp: new Date().toLocaleString(),
+      isAuthor: user.name === idea.author,
+      replies: [],
     };
     const updatedComments = [...comments, newComment];
     setComments(updatedComments);
@@ -103,9 +107,41 @@ export default function IdeaDetails() {
     setCommentText("");
   };
 
+  // Handle reply to comment
+  const handleReply = (commentId) => {
+    if (!replyText.trim()) return;
+    const updatedComments = comments.map((comment) => {
+      if (comment.id === commentId) {
+        return {
+          ...comment,
+          replies: [
+            ...(comment.replies || []),
+            {
+              id: Date.now(),
+              author: user.name,
+              text: replyText,
+              timestamp: new Date().toLocaleString(),
+              isAuthor: user.name === idea.author,
+            },
+          ],
+        };
+      }
+      return comment;
+    });
+    setComments(updatedComments);
+    saveToLocalStorage({ upvoted, pledge, comments: updatedComments });
+    setReplyText("");
+    setReplyingTo(null);
+  };
+
   // Handle favorite toggle
   const handleBack = () => {
     window.history.back();
+  };
+
+  const handleFollowUpdates = () => {
+    setIsFollowing(!isFollowing);
+    alert(isFollowing ? "Unfollowed updates" : "Following updates for this idea!");
   };
 
   const handleFavorite = () => {
@@ -252,10 +288,46 @@ export default function IdeaDetails() {
             <div className="comments-list">
               {comments.length > 0 && <h4 className="comments-header">Comments ({comments.length})</h4>}
               {comments.map((comment) => (
-                <div key={comment.id} className="comment-item">
-                  <div className="comment-author">{comment.author}</div>
+                <div key={comment.id} className={`comment-item ${comment.isAuthor ? "author-comment" : ""}`}>
+                  <div className="comment-author">{comment.author} {comment.isAuthor && <span className="author-badge">Author</span>}</div>
                   <div className="comment-time">{comment.timestamp}</div>
                   <div className="comment-text">{comment.text}</div>
+                  <button className="reply-btn" onClick={() => setReplyingTo(comment.id)}>
+                    💬 Reply
+                  </button>
+                  
+                  {/* Replies */}
+                  {comment.replies && comment.replies.length > 0 && (
+                    <div className="replies-section">
+                      {comment.replies.map((reply) => (
+                        <div key={reply.id} className={`reply-item ${reply.isAuthor ? "author-reply" : ""}`}>
+                          <div className="reply-author">{reply.author} {reply.isAuthor && <span className="author-badge">Author</span>}</div>
+                          <div className="reply-time">{reply.timestamp}</div>
+                          <div className="reply-text">{reply.text}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Reply Input */}
+                  {replyingTo === comment.id && (
+                    <div className="reply-input-wrapper">
+                      <textarea
+                        className="reply-input"
+                        placeholder="Write a reply..."
+                        value={replyText}
+                        onChange={(e) => setReplyText(e.target.value)}
+                      />
+                      <div className="reply-actions">
+                        <button className="reply-submit-btn" onClick={() => handleReply(comment.id)}>
+                          Post Reply
+                        </button>
+                        <button className="reply-cancel-btn" onClick={() => setReplyingTo(null)}>
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -268,18 +340,23 @@ export default function IdeaDetails() {
 
           {/* UPVOTE */}
           <div className="side-card">
+            <h3>Upvotes</h3>
+
+            <p className="card-text">Show your support for this idea</p>
             <button
               className={`upvote ${upvoted ? "active" : ""}`}
               onClick={handleUpvote}
             >
               ▲ Upvote
             </button>
-            <div className="metric">{votes} Votes</div>
+            <div className="metric"> Community Votes  {votes}</div>
           </div>
 
           {/* PLEDGE */}
           <div className="side-card">
             <h3>Pledge Time</h3>
+            <p className="card-text">Commit your effort to help implement</p>
+            <div className="metric">{pledge} hours per week</div>
             <input
               type="range"
               min="1"
@@ -287,7 +364,6 @@ export default function IdeaDetails() {
               value={pledge}
               onChange={(e) => setPledge(parseInt(e.target.value))}
             />
-            <div className="metric">{pledge} hrs / week</div>
             <button className="primary-btn" onClick={handleConfirmPledge}>
               Confirm Pledge
             </button>
@@ -296,12 +372,17 @@ export default function IdeaDetails() {
           {/* IMPACT */}
           <div className="side-card">
             <h3>Impact Progress</h3>
-            <div className="progress-bar">
-              <div style={{ width: `${progress}%` }} className="progress-fill" />
-            </div>
             <div className="metric">
               {idea.pledgedHours}/{idea.totalHours} hrs pledged
             </div>
+            <div className="progress-bar">
+              <div style={{ width: `${progress}%` }} className="progress-fill" />
+            </div>
+            
+            <p className="card-text">{progress.toFixed(0)}% goal reached</p>
+            <button className="follow-btn" onClick={handleFollowUpdates}>
+              {isFollowing ? "✓ Following Updates" : "📬 Follow Updates"}
+            </button>
           </div>
 
         </div>
