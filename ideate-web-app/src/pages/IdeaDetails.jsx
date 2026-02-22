@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "../Styles/IdeaDetails.css";
+import "../Styles/SideCard.css";
 
 export default function IdeaDetails() {
   const { id } = useParams();
@@ -103,6 +104,10 @@ export default function IdeaDetails() {
   };
 
   // Handle favorite toggle
+  const handleBack = () => {
+    window.history.back();
+  };
+
   const handleFavorite = () => {
     const favorites = JSON.parse(localStorage.getItem("favorites") || "{}");
     if (!favorites[user.id]) favorites[user.id] = [];
@@ -172,7 +177,7 @@ export default function IdeaDetails() {
         <div className="idea-content">
 
           <div className="idea-card">
-
+            <button className="back-btn" onClick={() => window.history.back()}> Back</button>
             {/* Author */}
             <div className="idea-top">
               <div className="idea-user">
@@ -205,13 +210,13 @@ export default function IdeaDetails() {
                   className={`icon-btn ${isFavorite ? "favorite-active" : ""}`}
                   onClick={handleFavorite}
                 >
-                  {isFavorite ? "★" : "☆"} Fav
+                   Fav
                 </button>
               </div>
             </div>
 
             {/* Title */}
-            <p>{idea.category}</p>
+            <p className="category">{idea.category}</p>
 
             <h1 className="idea-title">{idea.title}</h1>
 
@@ -233,8 +238,8 @@ export default function IdeaDetails() {
 
           {/* COMMENTS */}
           <div className="idea-card">
-            <h3>Discussion</h3>
-            <textarea
+            <h3 >Discussions</h3>
+            <textarea className="commentinputbox"
               placeholder="Share your thoughts..."
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}

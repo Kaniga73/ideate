@@ -1,0 +1,33 @@
+/* Styles specific to the sidebar cards (upvote, pledge, impact) */
+
+.side-card {
+  background: var(--card-bg);
+  border-radius: 18px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  transition: .3s ease;
+}
+
+.side-card:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+/* make sidebar itself sticky */
+.idea-sidebar {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+}
+
+/* small metric text inside side cards */
+.metric {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 8px;
+  text-align: center;
+}
+
+/* reuse the generic button styles declared elsewhere */
+
+/* range input and progress are shared with main card */
