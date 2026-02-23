@@ -48,12 +48,12 @@ export default function LoginPage() {
       setSuccessMsg(`Welcome ${matchedUser.name}!`);
 
         setTimeout(() => {
-      if (role === "employee") {
-         
-        navigate("/employee-dashboard");
-      } else {
-        navigate("/admin-dashboard");
-      }
+      if (matchedUser.role === "employee") {
+      navigate("/employee-dashboard");
+        } 
+    else if (matchedUser.role === "admin") {
+    navigate("/admin-dashboard");
+}
     }, 1000);
 
     } catch (err) {

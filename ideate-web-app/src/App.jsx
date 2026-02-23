@@ -4,6 +4,8 @@ import EmployeeDashboard from "./pages/EmployeeDashboard";
 import Submit from "./pages/Submit";
 import Profile from "./pages/Profile";
 import IdeaDetails from "./pages/IdeaDetails";
+import AdminDashboard from "./pages/AdminDashboard";
+
 
 
 
@@ -17,6 +19,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           {/* idea detail view */}
           <Route path="/ideas/:id" element={<IdeaDetails />} />
+           <Route path="/admin-dashboard" element={<AdminDashboard />} />
       
       </Routes>
     </BrowserRouter>

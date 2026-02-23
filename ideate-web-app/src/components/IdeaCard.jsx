@@ -57,7 +57,7 @@ export function ProgressBar({ value, max }) {
 export default function IdeaCard({ idea, onDetails }) {
   const [upvoted, setUpvoted] = useState(false);
   const [votes, setVotes] = useState(idea.upvotes);
-  const full = idea.pledgedHours >= idea.totalHours;
+   const full = idea.pledgedHours >= idea.totalHours;
 
   const handleUpvote = (e) => {
     e.stopPropagation();
@@ -69,19 +69,24 @@ export default function IdeaCard({ idea, onDetails }) {
     <div className="idea-card" onClick={() => onDetails?.(idea.id)}>
       <div className="idea-card__top">
         <StatusBadge status={idea.status} />
-        <button
-          className={`upvote-btn ${upvoted ? "upvote-btn--active" : ""}`}
-          onClick={handleUpvote}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24"
-            fill={upvoted ? "currentColor" : "none"}
-            stroke="currentColor" strokeWidth="2.2"
-            strokeLinecap="round" strokeLinejoin="round"
+
+        {/* Upvote Display Only */}
+        <div className="upvote-btn">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
             <polyline points="18 15 12 9 6 15" />
           </svg>
-          <span className="upvote-btn__count">{votes}</span>
-        </button>
+
+          <span className="upvote-btn__count">{idea.upvotes}</span>
+        </div>
       </div>
 
       <h3 className="idea-card__title">{idea.title}</h3>
@@ -99,15 +104,21 @@ export default function IdeaCard({ idea, onDetails }) {
       <div>
         <div className="pledged-hours__header">
           <span className="pledged-hours__label">PLEDGED HOURS</span>
-          <span className={`pledged-hours__value ${full ? "pledged-hours__value--full" : ""}`}>
+          <span
+            className={`pledged-hours__value ${
+              full ? "pledged-hours__value--full" : ""
+            }`}
+          >
             {idea.pledgedHours}/{idea.totalHours} hrs
           </span>
         </div>
+
         <ProgressBar value={idea.pledgedHours} max={idea.totalHours} />
       </div>
 
       <div className="idea-card__footer">
         <span className="idea-card__time">{idea.postedAt}</span>
+
         <button
           className="details-btn"
           onClick={(e) => {
