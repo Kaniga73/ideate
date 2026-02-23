@@ -11,6 +11,19 @@ export default function Profile() {
   const [activeTab, setActiveTab] = useState("reviewed");
   const [ideas, setIdeas] = useState([]);
 
+  /* ✅ STATUS COUNTS */
+const pendingIdeas = ideas.filter(
+  (idea) => idea.status === "pending"
+);
+
+const approvedIdeas = ideas.filter(
+  (idea) => idea.status === "approved"
+);
+
+const reviewedIdeas = ideas.filter(
+  (idea) => idea.status === "reviewed"
+);
+
   useEffect(() => {
     const savedIdeas =
       JSON.parse(localStorage.getItem("ideas")) || [];
@@ -74,36 +87,37 @@ export default function Profile() {
 
         {/* RIGHT */}
         <main className="profile-main">
+       {/* Metrics */}
+       <div className="metrics-row">
 
-          {/* METRICS */}
-          <div className="metrics-row">
+  <div className="metric-card metric-blue">
+    <div>
+      <div className="metric-label">Pending Reviews</div>
+      <div className="metric-value">
+        {pendingIdeas.length}
+      </div>
+    </div>
+  </div>
 
-            <div className="metric-card metric-blue">
-              <div>
-                <div className="metric-label">Pending Reviews</div>
-                <div className="metric-value">04</div>
-              </div>
-            </div>
+  <div className="metric-card">
+    <div>
+      <div className="metric-label">Total Ideas</div>
+      <div className="metric-value">
+        {ideas.length}
+      </div>
+    </div>
+  </div>
 
-            <div className="metric-card">
-              <div>
-                <div className="metric-label">Total Ideas</div>
-                <div className="metric-value">
-                  {ideas.length}
-                </div>
-              </div>
-            </div>
+  <div className="metric-card">
+    <div>
+      <div className="metric-label">My Submissions</div>
+      <div className="metric-value">
+        {myIdeas.length}
+      </div>
+    </div>
+  </div>
 
-            <div className="metric-card">
-              <div>
-                <div className="metric-label">My Submissions</div>
-                <div className="metric-value">
-                  {myIdeas.length}
-                </div>
-              </div>
-            </div>
-
-          </div>
+</div>
 
 
           {/* TABLE */}
