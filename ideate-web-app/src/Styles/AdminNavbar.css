@@ -1,0 +1,125 @@
+.navbar {
+  background-color: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0 32px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* ── Logo ── */
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.navbar__logo-img {
+  height: 50px;          /* ✅ Changed from 300px to 40px */
+  width: auto;
+  object-fit: contain;
+}
+
+.font{
+    font-family:armwrestler;
+}
+
+/* ── Nav Links ── */
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar__link {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  user-select: none;
+}
+
+.navbar__link:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+.navbar__link--active {
+  background-color: #eff6ff;
+  color: #4ac7f5;
+}
+
+.navbar__link--active svg {
+  stroke: #4ac7f5;
+}
+
+/* ── Right ── */
+.navbar__right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+
+.navbar__user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar__user-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0f172a;
+  text-align: right;
+}
+
+.navbar__user-role {
+  font-size: 0.68rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: right;
+}
+
+.navbar__avatar {
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 16px;
+  }
+
+  .navbar__links {
+    display: none; /* ✅ Added to hide nav links on mobile */
+  }
+
+  .navbar__user-name,
+  .navbar__user-role {
+    display: none;
+  }
+}

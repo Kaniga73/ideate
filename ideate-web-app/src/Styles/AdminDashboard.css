@@ -1,0 +1,210 @@
+/* ─── Base ──────────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard {
+  min-height: 100vh;
+  background-color: #f1f5f9;
+  font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+/* ─── Page Body ─────────────────────────────────────────────────────────────── */
+.page-body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 36px 28px;
+}
+
+/* ─── Page Header ───────────────────────────────────────────────────────────── */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+
+.page-header__title {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #1f3769;
+  letter-spacing: -0.03em;
+}
+
+.page-header__subtitle {
+  margin-top: 6px;
+  font-size: 0.92rem;
+  color: #052d66;
+}
+
+/* ─── Sort Tabs ─────────────────────────────────────────────────────────────── */
+.sort-tabs {
+  display: flex;
+  background-color: #e2e8f0;
+  border-radius: 10px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.sort-tab {
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.84rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  background-color: transparent;
+  color: #64748b;
+  font-family: inherit;
+}
+
+.sort-tab--active {
+  background-color: #4ac7f5;
+  color: #fff;
+}
+
+/* ─── Search Bar ────────────────────────────────────────────────────────────── */
+.search-bar-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+.search-bar__icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #94a3b8;
+}
+
+.search-bar__input {
+  width: 100%;
+  padding: 13px 16px 13px 46px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  font-size: 0.92rem;
+  color: #334155;
+  background-color: #fff;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.search-bar__input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.search-bar__input::placeholder {
+  color: #b0bec5;
+}
+
+/* ─── Ideas Grid ────────────────────────────────────────────────────────────── */
+.ideas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+
+/* ─── Start Here Card ───────────────────────────────────────────────────────── */
+.start-here-card {
+  background-color: #f8faff;
+  border-radius: 14px;
+  border: 2px dashed #cbd5e1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  gap: 10px;
+  min-height: 240px;
+  text-align: center;
+}
+
+.start-here-card__icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #eff6ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.start-here-card__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.start-here-card__subtitle {
+  font-size: 0.85rem;
+  color: #64748b;
+  line-height: 1.5;
+}
+.start-here-card__icon {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+.start-here-btn {
+  margin-top: 8px;
+  background-color: #4ac7f5;
+  color: #fff;
+  border: none;
+  border-radius: 9px;
+  padding: 11px 28px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: inherit;
+}
+
+.start-here-btn:hover {
+  background-color: #6fd4f8;
+}
+
+/* ─── Empty State ───────────────────────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 60px 0;
+  color: #94a3b8;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+
+
+/* ─── Responsive ────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .page-body {
+    padding: 24px 16px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .ideas-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fab {
+    bottom: 20px;
+    left: 20px;
+    padding: 12px 18px;
+    font-size: 0.85rem;
+  }
+}
