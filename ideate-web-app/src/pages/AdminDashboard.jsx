@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/AdminNavbar";
 import "../Styles/AdminDashboard.css";
-import IdeateLogo from "../assets/IdeateLogo.png";
-
+import IdeaCard from "../components/IdeaCard";
 
 // Default Ideas
 const DEFAULT_IDEAS = [
@@ -20,18 +19,9 @@ const DEFAULT_IDEAS = [
     department: "Logistics",
     postedAt: "2 days ago",
   },
-  { id: 2, title: "AI-Powered Support Desk", 
-    category: "AI / Machine Learning", 
-    description: "Using large language models to automate internal IT support ticketing and common FAQ...", 
-    status: "PENDING", upvotes: 156, pledgedHours: 45, totalHours: 200, 
-    author: "Mark Taylor", department: "ENGINEERING", postedAt: "5 days ago", },
-    
 ];
 
-
-
 export default function AdminDashboard() {
-
   const navigate = useNavigate();
 
   const user =
@@ -41,12 +31,22 @@ export default function AdminDashboard() {
   const [search, setSearch] = useState("");
   const [sortTab, setSortTab] = useState("Most Popular");
 
-  // Load ideas from localStorage
   const [ideas, setIdeas] = useState(() => {
     const saved = localStorage.getItem("ideas");
     return saved ? JSON.parse(saved) : DEFAULT_IDEAS;
   });
 
+  /* ✅ AUTO SYNC WHEN STORAGE CHANGES */
+  useEffect(() => {
+    const handleStorage = () => {
+      const storedIdeas = JSON.parse(localStorage.getItem("ideas"));
+      if (storedIdeas) setIdeas(storedIdeas);
+    };
+
+    window.addEventListener("storage", handleStorage);
+
+    return () => window.removeEventListener("storage", handleStorage);
+  }, []);
 
   // Filter + Sort
   const filteredIdeas = ideas
@@ -60,14 +60,11 @@ export default function AdminDashboard() {
       sortTab === "Most Popular" ? b.upvotes - a.upvotes : 0
     );
 
-
   return (
     <div className="dashboard">
-
       <Navbar user={user} />
 
       <div className="page-body">
-
         {/* Header */}
         <div className="page-header">
           <div>
@@ -92,7 +89,6 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-
         {/* Search */}
         <div className="search-bar-wrapper">
           <input
@@ -103,7 +99,16 @@ export default function AdminDashboard() {
           />
         </div>
 
-
+        {/* Ideas Grid */}
+        <div className="ideas-grid">
+          {filteredIdeas.map((idea) => (
+            <IdeaCard
+              key={idea.id}
+              idea={idea}
+              onDetails={(id) => navigate(`/ideas/${id}`)}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
