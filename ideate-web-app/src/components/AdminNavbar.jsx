@@ -79,17 +79,19 @@ export default function Navbar({ user }) {
             <div className="navbar__user-role">{user?.role || ""}</div>
           </div>
 
-          <div
-            className="navbar__avatar"
-            style={{
-              backgroundColor: avatarColor(user?.name || "G"),
-              width: 38,
-              height: 38,
-              fontSize: 38 * 0.36,
-            }}
-          >
-            {getInitials(user?.name)}
-          </div>
+         <div
+          className="navbar__avatar"
+          onClick={() => navigate("/my-activity")}
+          style={{
+            backgroundColor: avatarColor(user?.name || "G"),
+            width: 38,
+            height: 38,
+            fontSize: 38 * 0.36,
+            cursor: "pointer",
+          }}
+        >
+          {getInitials(user?.name)}
+</div>
         </div>
       </div>
     </nav>

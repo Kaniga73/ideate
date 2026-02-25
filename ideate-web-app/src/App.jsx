@@ -5,6 +5,7 @@ import Submit from "./pages/Submit";
 import Profile from "./pages/Profile";
 import IdeaDetails from "./pages/IdeaDetails";
 import AdminDashboard from "./pages/AdminDashboard";
+import MyActivity from "./pages/MyActivity";
 
 
 
@@ -20,6 +21,7 @@ function App() {
           {/* idea detail view */}
           <Route path="/ideas/:id" element={<IdeaDetails />} />
            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+           <Route path="/my-activity" element={<MyActivity />} />
       
       </Routes>
     </BrowserRouter>
