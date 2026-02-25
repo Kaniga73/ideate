@@ -234,11 +234,11 @@ export default function IdeaDetails() {
                   </button>
                   {showShareMenu && (
                     <div className="share-menu">
-                      <button onClick={() => handleShare("copy")}>📋 Copy Link</button>
-                      <button onClick={() => handleShare("whatsapp")}>💬 WhatsApp</button>
-                      <button onClick={() => handleShare("twitter")}>🐦 Twitter</button>
-                      <button onClick={() => handleShare("facebook")}>📘 Facebook</button>
-                      <button onClick={() => handleShare("email")}>📧 Email</button>
+                          <button onClick={() => handleShare("copy")}><i className="fa-solid fa-clipboard"></i> Copy Link</button>
+                      <button onClick={() => handleShare("whatsapp")}><i className="fa-brands fa-whatsapp"></i> WhatsApp</button>
+                      <button onClick={() => handleShare("twitter")}><i className="fa-brands fa-twitter"></i> Twitter</button>
+                      <button onClick={() => handleShare("facebook")}><i className="fa-brands fa-facebook-f"></i> Facebook</button>
+                      <button onClick={() => handleShare("email")}><i className="fa-solid fa-envelope"></i> Email</button>
                     </div>
                   )}
                 </div>
@@ -353,7 +353,7 @@ export default function IdeaDetails() {
           <div className="side-card">
             <h3>Pledge Time</h3>
             <p className="card-text">Commit your effort to help implement</p>
-            <div className="metric">{pledge} hours per week</div>
+            <div className="metric hours-text">{pledge} hours per week</div>
             <input
               type="range"
               min="1"

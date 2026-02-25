@@ -172,6 +172,11 @@
   background-color: #e2e8f0;
   overflow: hidden;
   margin-top: 6px;
+  outline: none;
+}
+
+.progress-bar, .progress-bar__fill {
+  outline: none;
 }
 
 .progress-bar__fill {
