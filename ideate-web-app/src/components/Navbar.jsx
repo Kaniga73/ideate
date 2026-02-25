@@ -66,30 +66,36 @@ export default function Navbar({ user }) {
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
             <circle cx="12" cy="7" r="4" />
           </svg>
-          Profile
+          Contributions
         </li>
 
       </ul>
 
       {/* Right Side */}
       <div className="navbar__right">
-        <div className="navbar__user">
+              <div
+                className="navbar__user"
+                onClick={() => navigate("/profile")}
+                style={{ cursor: "pointer" }}
+>
           <div>
             <div className="navbar__user-name">{user?.name || "Guest"}</div>
             <div className="navbar__user-role">{user?.role || ""}</div>
           </div>
 
           <div
-            className="navbar__avatar"
-            style={{
-              backgroundColor: avatarColor(user?.name || "G"),
-              width: 38,
-              height: 38,
-              fontSize: 38 * 0.36,
-            }}
-          >
-            {getInitials(user?.name)}
-          </div>
+          className="navbar__avatar"
+          onClick={() => navigate("/profile")}
+          style={{
+            backgroundColor: avatarColor(user?.name || "G"),
+            width: 38,
+            height: 38,
+            fontSize: 38 * 0.36,
+            cursor: "pointer",
+          }}
+        >
+          {getInitials(user?.name)}
+        </div>
         </div>
       </div>
     </nav>
