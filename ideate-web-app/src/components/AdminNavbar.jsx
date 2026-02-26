@@ -31,26 +31,31 @@ export default function Navbar({ user }) {
       {/* Center Links */}
       <ul className="navbar__links">
 
-        {/* Dashboard */}
-        <li
-          className={`navbar__link ${
-            location.pathname === "/Admin-dashboard"
-              ? "navbar__link--active"
-              : ""
-          }`}
-          onClick={() => navigate("/Admin-dashboard")}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-          >
-            <rect x="3" y="3" width="7" height="7" />
-            <rect x="14" y="3" width="7" height="7" />
-            <rect x="3" y="14" width="7" height="7" />
-            <rect x="14" y="14" width="7" height="7" />
-          </svg>
-          Dashboard
-        </li>
-
+       <li
+  className={`navbar__link ${
+    location.pathname === "/admin-dashboard"
+      ? "navbar__link--active"
+      : ""
+  }`}
+  onClick={() => navigate("/admin-dashboard")}
+>
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="3" y="3" width="7" height="7" />
+    <rect x="14" y="3" width="7" height="7" />
+    <rect x="3" y="14" width="7" height="7" />
+    <rect x="14" y="14" width="7" height="7" />
+  </svg>
+  Dashboard
+</li>
         {/* Myactivity */}
         <li
   className={`navbar__link ${
