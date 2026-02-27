@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import logo from "../assets/logo.png"; 
 
-export default function Navbar({ user }) {
+export default function AdminNavbar({ user }) { 
 
   const navigate = useNavigate();
   const location = useLocation(); //get current route

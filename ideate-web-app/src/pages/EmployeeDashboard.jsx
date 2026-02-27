@@ -5,7 +5,6 @@ import IdeaCard from "../components/IdeaCard";
 import "../Styles/EmployeeDashboard.css";
 import IdeateLogo from "../assets/IdeateLogo.png";
 
-
 // Default Ideas
 const DEFAULT_IDEAS = [
   {
@@ -21,14 +20,21 @@ const DEFAULT_IDEAS = [
     department: "Logistics",
     postedAt: "2 days ago",
   },
-  { id: 2, title: "AI-Powered Support Desk", 
-    category: "AI / Machine Learning", 
-    description: "Using large language models to automate internal IT support ticketing and common FAQ...", 
-    status: "PENDING", upvotes: 156, pledgedHours: 45, totalHours: 200, 
-    author: "Mark Taylor", department: "ENGINEERING", postedAt: "5 days ago", },
-    
+  {
+    id: 2,
+    title: "AI-Powered Support Desk",
+    category: "AI / Machine Learning",
+    description:
+      "Using large language models to automate internal IT support ticketing and common FAQ...",
+    status: "PENDING",
+    upvotes: 156,
+    pledgedHours: 45,
+    totalHours: 200,
+    author: "Mark Taylor",
+    department: "ENGINEERING",
+    postedAt: "5 days ago",
+  },
 ];
-
 
 // Start Here Card
 function StartHereCard({ onSubmit }) {
@@ -50,24 +56,38 @@ function StartHereCard({ onSubmit }) {
   );
 }
 
-
 export default function EmployeeDashboard() {
-
   const navigate = useNavigate();
 
-  const user =
-    JSON.parse(localStorage.getItem("user")) ||
-    { name: "Guest", role: "Employee" };
-
+  const [user, setUser] = useState(null);
   const [search, setSearch] = useState("");
   const [sortTab, setSortTab] = useState("Most Popular");
+  const [ideas, setIdeas] = useState([]);
 
-  // Load ideas from localStorage
-  const [ideas, setIdeas] = useState(() => {
-    const saved = localStorage.getItem("ideas");
-    return saved ? JSON.parse(saved) : DEFAULT_IDEAS;
-  });
+  // ✅ Proper Role Protection
+  useEffect(() => {
+    const loggedUser = JSON.parse(localStorage.getItem("user"));
 
+    if (!loggedUser) {
+      navigate("/");
+      return;
+    }
+
+    // 🔥 If admin tries to open employee page
+    if (loggedUser.role === "admin") {
+      navigate("/admin-dashboard");
+      return;
+    }
+
+    setUser(loggedUser);
+
+    const savedIdeas = localStorage.getItem("ideas");
+    setIdeas(savedIdeas ? JSON.parse(savedIdeas) : DEFAULT_IDEAS);
+
+  }, [navigate]);
+
+  // Prevent render before role check
+  if (!user) return null;
 
   // Filter + Sort
   const filteredIdeas = ideas
@@ -81,14 +101,11 @@ export default function EmployeeDashboard() {
       sortTab === "Most Popular" ? b.upvotes - a.upvotes : 0
     );
 
-
   return (
     <div className="dashboard">
-
       <Navbar user={user} />
 
       <div className="page-body">
-
         {/* Header */}
         <div className="page-header">
           <div>
@@ -113,7 +130,6 @@ export default function EmployeeDashboard() {
           </div>
         </div>
 
-
         {/* Search */}
         <div className="search-bar-wrapper">
           <input
@@ -124,10 +140,8 @@ export default function EmployeeDashboard() {
           />
         </div>
 
-
         {/* Ideas Grid */}
         <div className="ideas-grid">
-
           <StartHereCard onSubmit={() => navigate("/submit-idea")} />
 
           {filteredIdeas.map((idea) => (
@@ -137,9 +151,7 @@ export default function EmployeeDashboard() {
               onDetails={(id) => navigate(`/ideas/${id}`)}
             />
           ))}
-
         </div>
-
       </div>
     </div>
   );
