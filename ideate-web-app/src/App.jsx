@@ -6,7 +6,7 @@ import Profile from "./pages/Profile";
 import IdeaDetails from "./pages/IdeaDetails";
 import AdminDashboard from "./pages/AdminDashboard";
 import MyActivity from "./pages/MyActivity";
-
+import AdminIdeaDetails from "./pages/AdminIdeaDetails";
 
 
 
@@ -22,7 +22,7 @@ function App() {
           <Route path="/ideas/:id" element={<IdeaDetails />} />
            <Route path="/admin-dashboard" element={<AdminDashboard />} />
            <Route path="/my-activity" element={<MyActivity />} />
-      
+            <Route path="/admin/idea/:id" element={<AdminIdeaDetails />} />
       </Routes>
     </BrowserRouter>
   );

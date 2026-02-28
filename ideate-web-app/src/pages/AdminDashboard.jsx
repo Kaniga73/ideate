@@ -105,7 +105,7 @@ export default function AdminDashboard() {
             <IdeaCard
               key={idea.id}
               idea={idea}
-              onDetails={(id) => navigate(`/ideas/${id}`)}
+             onDetails={(id) => navigate(`/admin/idea/${id}`)}
             />
           ))}
         </div>
