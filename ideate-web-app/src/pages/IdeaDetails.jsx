@@ -22,7 +22,7 @@ export default function IdeaDetails() {
     const saved = localStorage.getItem("ideas");
     const ideas = saved ? JSON.parse(saved) : [];
     const found = ideas.find((i) => String(i.id) === String(id));
-    
+
     if (found) {
       setIdea(found);
 
@@ -47,7 +47,6 @@ export default function IdeaDetails() {
     const prevUpvoted = !!curr.upvoted;
     const newUpvoted = !prevUpvoted;
 
-    // Update main idea upvotes
     const ideasRaw = localStorage.getItem("ideas");
     const ideas = ideasRaw ? JSON.parse(ideasRaw) : [];
     const idx = ideas.findIndex((i) => String(i.id) === String(id));
@@ -58,7 +57,6 @@ export default function IdeaDetails() {
       setIdea(ideas[idx]);
     }
 
-    // persist per-user metrics
     metrics[id] = { ...curr, upvoted: newUpvoted, pledge: curr.pledge || pledge, comments: curr.comments || comments };
     localStorage.setItem("ideaMetrics", JSON.stringify(metrics));
     setUpvoted(newUpvoted);
@@ -96,6 +94,7 @@ export default function IdeaDetails() {
     const newComment = {
       id: Date.now(),
       author: user.name,
+      // ✅ employees don't get a role field — only admin comments have role: "Admin"
       text: commentText,
       timestamp: new Date().toLocaleString(),
       isAuthor: user.name === idea.author,
@@ -119,6 +118,8 @@ export default function IdeaDetails() {
             {
               id: Date.now(),
               author: user.name,
+              // ✅ store role so display knows who replied
+              role: user.role === "admin" ? "Admin" : "Employee",
               text: replyText,
               timestamp: new Date().toLocaleString(),
               isAuthor: user.name === idea.author,
@@ -132,11 +133,6 @@ export default function IdeaDetails() {
     saveToLocalStorage({ upvoted, pledge, comments: updatedComments });
     setReplyText("");
     setReplyingTo(null);
-  };
-
-  // Handle favorite toggle
-  const handleBack = () => {
-    window.history.back();
   };
 
   const handleFollowUpdates = () => {
@@ -159,7 +155,6 @@ export default function IdeaDetails() {
     setIsFavorite(!isFavorite);
   };
 
-  // Handle share
   const handleShare = (platform) => {
     const url = `${window.location.origin}/ideas/${id}`;
     const text = `Check out this idea: "${idea.title}"`;
@@ -191,7 +186,6 @@ export default function IdeaDetails() {
     setShowShareMenu(false);
   };
 
-  // Save to localStorage
   const saveToLocalStorage = (data) => {
     const ideaMetrics = JSON.parse(localStorage.getItem("ideaMetrics") || "{}");
     ideaMetrics[id] = data;
@@ -213,7 +207,8 @@ export default function IdeaDetails() {
         <div className="idea-content">
 
           <div className="idea-card">
-            <button className="back-btn" onClick={() => window.history.back()}> Back</button>
+            <button className="back-btn" onClick={() => window.history.back()}>Back</button>
+
             {/* Author */}
             <div className="idea-top">
               <div className="idea-user">
@@ -234,7 +229,7 @@ export default function IdeaDetails() {
                   </button>
                   {showShareMenu && (
                     <div className="share-menu">
-                          <button onClick={() => handleShare("copy")}><i className="fa-solid fa-clipboard"></i> Copy Link</button>
+                      <button onClick={() => handleShare("copy")}><i className="fa-solid fa-clipboard"></i> Copy Link</button>
                       <button onClick={() => handleShare("whatsapp")}><i className="fa-brands fa-whatsapp"></i> WhatsApp</button>
                       <button onClick={() => handleShare("twitter")}><i className="fa-brands fa-twitter"></i> Twitter</button>
                       <button onClick={() => handleShare("facebook")}><i className="fa-brands fa-facebook-f"></i> Facebook</button>
@@ -244,13 +239,15 @@ export default function IdeaDetails() {
                 </div>
                 <button
                   className={`icon-btn ${isFavorite ? "favorite-active" : ""}`}
-                  onClick={handleFavorite}>Fav</button>
+                  onClick={handleFavorite}
+                >
+                  Fav
+                </button>
               </div>
             </div>
 
-            {/* Title */}
+            {/* Category & Title */}
             <p className="category">{idea.category}</p>
-
             <h1 className="idea-title">{idea.title}</h1>
 
             {/* Description */}
@@ -266,39 +263,66 @@ export default function IdeaDetails() {
                 <img src={idea.image} alt="" className="idea-img" />
               </div>
             )}
-
           </div>
 
           {/* COMMENTS */}
           <div className="idea-card">
-            <h3 >Discussions</h3>
-            <textarea className="commentinputbox"
+            <h3>Discussions</h3>
+            <textarea
+              className="commentinputbox"
               placeholder="Share your thoughts..."
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
-            ></textarea>
+            />
             <button className="primary-btn" onClick={handlePostComment}>
               Post Comment
             </button>
 
-            {/* Display Comments */}
             <div className="comments-list">
-              {comments.length > 0 && <h4 className="comments-header">Comments ({comments.length})</h4>}
+              {comments.length > 0 && (
+                <h4 className="comments-header">Comments ({comments.length})</h4>
+              )}
               {comments.map((comment) => (
-                <div key={comment.id} className={`comment-item ${comment.isAuthor ? "author-comment" : ""}`}>
-                  <div className="comment-author">{comment.author} {comment.isAuthor && <span className="author-badge">Author</span>}</div>
+                <div
+                  key={comment.id}
+                  className={`comment-item ${comment.isAuthor ? "author-comment" : ""} ${comment.role === "Admin" ? "admin-comment" : ""}`}
+                >
+                  <div className="comment-author">
+                    {comment.author}
+                    {/* ✅ Show Admin badge on admin comments */}
+                    {comment.role === "Admin" && (
+                      <span className="admin-badge">Admin</span>
+                    )}
+                    {comment.isAuthor && (
+                      <span className="author-badge">Author</span>
+                    )}
+                  </div>
                   <div className="comment-time">{comment.timestamp}</div>
                   <div className="comment-text">{comment.text}</div>
-                  <button className="reply-btn" onClick={() => setReplyingTo(comment.id)}>
-                     Reply
+                  <button
+                    className="reply-btn"
+                    onClick={() => setReplyingTo(comment.id)}
+                  >
+                    Reply
                   </button>
-                  
+
                   {/* Replies */}
                   {comment.replies && comment.replies.length > 0 && (
                     <div className="replies-section">
                       {comment.replies.map((reply) => (
-                        <div key={reply.id} className={`reply-item ${reply.isAuthor ? "author-reply" : ""}`}>
-                          <div className="reply-author">{reply.author} {reply.isAuthor && <span className="author-badge">Author</span>}</div>
+                        <div
+                          key={reply.id}
+                          className={`reply-item ${reply.isAuthor ? "author-reply" : ""} ${reply.role === "Admin" ? "admin-reply" : ""}`}
+                        >
+                          <div className="reply-author">
+                            {reply.author}
+                            {reply.role === "Admin" && (
+                              <span className="admin-badge">Admin</span>
+                            )}
+                            {reply.isAuthor && reply.role !== "Admin" && (
+                              <span className="author-badge">Author</span>
+                            )}
+                          </div>
                           <div className="reply-time">{reply.timestamp}</div>
                           <div className="reply-text">{reply.text}</div>
                         </div>
@@ -316,10 +340,16 @@ export default function IdeaDetails() {
                         onChange={(e) => setReplyText(e.target.value)}
                       />
                       <div className="reply-actions">
-                        <button className="reply-submit-btn" onClick={() => handleReply(comment.id)}>
+                        <button
+                          className="reply-submit-btn"
+                          onClick={() => handleReply(comment.id)}
+                        >
                           Post Reply
                         </button>
-                        <button className="reply-cancel-btn" onClick={() => setReplyingTo(null)}>
+                        <button
+                          className="reply-cancel-btn"
+                          onClick={() => setReplyingTo(null)}
+                        >
                           Cancel
                         </button>
                       </div>
@@ -329,7 +359,6 @@ export default function IdeaDetails() {
               ))}
             </div>
           </div>
-
         </div>
 
         {/* RIGHT PANEL */}
@@ -338,7 +367,6 @@ export default function IdeaDetails() {
           {/* UPVOTE */}
           <div className="side-card">
             <h3>Upvotes</h3>
-
             <p className="card-text">Show your support for this idea</p>
             <button
               className={`upvote ${upvoted ? "active" : ""}`}
@@ -346,7 +374,7 @@ export default function IdeaDetails() {
             >
               ▲ Upvote
             </button>
-            <div className="metric"> Community Votes  {votes}</div>
+            <div className="metric">Community Votes {votes}</div>
           </div>
 
           {/* PLEDGE */}
@@ -375,15 +403,13 @@ export default function IdeaDetails() {
             <div className="progress-bar">
               <div style={{ width: `${progress}%` }} className="progress-fill" />
             </div>
-            
             <p className="card-text">{progress.toFixed(0)}% goal reached</p>
             <button className="follow-btn" onClick={handleFollowUpdates}>
-              {isFollowing ? "✓ Following Updates" : " Follow Updates"}
+              {isFollowing ? "✓ Following Updates" : "Follow Updates"}
             </button>
           </div>
 
         </div>
-
       </div>
     </div>
   );
