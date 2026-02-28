@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/AdminNavbar";
+import AdminNavbar from "../components/AdminNavbar";
 import "../Styles/AdminDashboard.css";
 import IdeaCard from "../components/IdeaCard";
 
@@ -24,19 +24,33 @@ const DEFAULT_IDEAS = [
 export default function AdminDashboard() {
   const navigate = useNavigate();
 
-  const user =
-    JSON.parse(localStorage.getItem("user")) ||
-    { name: "Guest", role: "Administrator" };
-
+  const [user, setUser] = useState(null);
   const [search, setSearch] = useState("");
   const [sortTab, setSortTab] = useState("Most Popular");
+  const [ideas, setIdeas] = useState([]);
 
-  const [ideas, setIdeas] = useState(() => {
-    const saved = localStorage.getItem("ideas");
-    return saved ? JSON.parse(saved) : DEFAULT_IDEAS;
-  });
+  // ✅ Proper Role Protection
+  useEffect(() => {
+    const loggedUser = JSON.parse(localStorage.getItem("user"));
 
-  /* ✅ AUTO SYNC WHEN STORAGE CHANGES */
+    if (!loggedUser) {
+      navigate("/");
+      return;
+    }
+
+    if (loggedUser.role !== "admin") {
+      navigate("/employee-dashboard");
+      return;
+    }
+
+    setUser(loggedUser);
+
+    const savedIdeas = localStorage.getItem("ideas");
+    setIdeas(savedIdeas ? JSON.parse(savedIdeas) : DEFAULT_IDEAS);
+
+  }, [navigate]);
+
+  // ✅ Sync ideas if updated elsewhere
   useEffect(() => {
     const handleStorage = () => {
       const storedIdeas = JSON.parse(localStorage.getItem("ideas"));
@@ -44,9 +58,10 @@ export default function AdminDashboard() {
     };
 
     window.addEventListener("storage", handleStorage);
-
     return () => window.removeEventListener("storage", handleStorage);
   }, []);
+
+  if (!user) return null; // prevent flicker
 
   // Filter + Sort
   const filteredIdeas = ideas
@@ -62,10 +77,9 @@ export default function AdminDashboard() {
 
   return (
     <div className="dashboard">
-      <Navbar user={user} />
+      <AdminNavbar user={user} />
 
       <div className="page-body">
-        {/* Header */}
         <div className="page-header">
           <div>
             <h1 className="page-header__title">Admin Dashboard</h1>
@@ -89,7 +103,6 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Search */}
         <div className="search-bar-wrapper">
           <input
             className="search-bar__input"
@@ -99,7 +112,6 @@ export default function AdminDashboard() {
           />
         </div>
 
-        {/* Ideas Grid */}
         <div className="ideas-grid">
           {filteredIdeas.map((idea) => (
             <IdeaCard
