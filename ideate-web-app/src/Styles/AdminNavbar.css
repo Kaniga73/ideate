@@ -1,4 +1,7 @@
-.navbar {
+/* ===============================
+   NAVBAR CONTAINER
+   =============================== */
+.admin-navbar {
   background-color: #fff;
   border-bottom: 1px solid #e2e8f0;
   padding: 0 32px;
@@ -12,27 +15,27 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
-/* ── Logo ── */
-.navbar__logo {
-  display: flex;
+/* ===============================
+   LOGO
+   =============================== */
+.admin-navbar__logo {
+display: flex;
   align-items: center;
   gap: 10px;
   text-decoration: none;
 }
 
-.navbar__logo-img {
-  height: 50px;          /* ✅ Changed from 300px to 40px */
+.admin-navbar__logo-img {
+   height: 50px;          /* ✅ Changed from 300px to 40px */
   width: auto;
   object-fit: contain;
 }
 
-.font{
-    font-family:armwrestler;
-}
-
-/* ── Nav Links ── */
-.navbar__links {
-  display: flex;
+/* ===============================
+   CENTER LINKS
+   =============================== */
+.admin-navbar__links {
+ display: flex;
   align-items: center;
   gap: 4px;
   list-style: none;
@@ -40,8 +43,8 @@
   padding: 0;
 }
 
-.navbar__link {
-  display: flex;
+.admin-navbar__link {
+ display: flex;
   align-items: center;
   gap: 7px;
   padding: 8px 16px;
@@ -54,50 +57,54 @@
   user-select: none;
 }
 
-.navbar__link:hover {
-  background-color: #f1f5f9;
+.admin-navbar__link:hover {
+   background-color: #f1f5f9;
   color: #0f172a;
 }
 
-.navbar__link--active {
-  background-color: #eff6ff;
+.admin-navbar__link--active {
+ background-color: #eff6ff;
   color: #4ac7f5;
 }
-
-.navbar__link--active svg {
+.admin-navbar__link--active svg {
   stroke: #4ac7f5;
 }
 
-/* ── Right ── */
-.navbar__right {
+
+
+
+
+/* ===============================
+   RIGHT SIDE - USER INFO
+   =============================== */
+.admin-navbar__right {
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
-
-.navbar__user {
-  display: flex;
+.admin-navbar__user {
+   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.navbar__user-name {
-  font-size: 0.85rem;
+.admin-navbar__user-name {
+   font-size: 0.85rem;
   font-weight: 700;
   color: #0f172a;
   text-align: right;
 }
 
-.navbar__user-role {
-  font-size: 0.68rem;
+.admin-navbar__user-role {
+   font-size: 0.68rem;
   color: #94a3b8;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   text-align: right;
 }
 
-.navbar__avatar {
+.admin-navbar__avatar {
   border-radius: 50%;
   color: #fff;
   display: flex;
@@ -108,18 +115,15 @@
   user-select: none;
 }
 
-/* ── Responsive ── */
+/* ===============================
+   RESPONSIVE
+   =============================== */
 @media (max-width: 768px) {
-  .navbar {
-    padding: 0 16px;
+  .admin-navbar__links {
+    display: none; /* hide center links on mobile, you can replace with hamburger menu later */
   }
-
-  .navbar__links {
-    display: none; /* ✅ Added to hide nav links on mobile */
-  }
-
-  .navbar__user-name,
-  .navbar__user-role {
+    .admin-navbar__user-name,
+  .admin-navbar__user-role {
     display: none;
   }
 }

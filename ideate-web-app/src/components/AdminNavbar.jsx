@@ -58,29 +58,9 @@ export default function AdminNavbar({ user }) {
   My Activity
 </li>
 
-        {/* Users */}
-        <li
-          className={`admin-navbar__link ${
-            location.pathname === "/users"
-              ? "admin-navbar__link--active"
-              : ""
-          }`}
-          onClick={() => navigate("/users")}
-        >
-          Users
-        </li>
+     
 
-        {/* Profile */}
-        <li
-          className={`admin-navbar__link ${
-            location.pathname === "/admin-profile"
-              ? "admin-navbar__link--active"
-              : ""
-          }`}
-          onClick={() => navigate("/admin-profile")}
-        >
-          Profile
-        </li>
+     
 
       </ul>
 

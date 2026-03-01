@@ -34,7 +34,7 @@ const Submit = () => {
       description,
       author: employee.name,     // ✅ IMPORTANT
       department: employee.role, // ✅ IMPORTANT
-      status: "PENDING",
+      status: "pending",
       upvotes: 0,
       pledgedHours: 0,
       totalHours: 100,

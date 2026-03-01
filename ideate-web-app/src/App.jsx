@@ -5,7 +5,7 @@ import Submit from "./pages/Submit";
 import Profile from "./pages/Profile";
 import IdeaDetails from "./pages/IdeaDetails";
 import AdminDashboard from "./pages/AdminDashboard";
-import MyActivity from "./pages/MyActivity";
+import MyActivity from "./pages/MyActivity.jsx"; // default import
 import AdminIdeaDetails from "./pages/AdminIdeaDetails";
 
 
