@@ -40,19 +40,25 @@ export default function AdminIdeaDetails() {
   };
 
   // ── Status Update ──
-  const updateStatus = (newStatus) => {
-    const savedIdeas = JSON.parse(localStorage.getItem("ideas")) || [];
-    const updated = savedIdeas.map((i) =>
-      String(i.id) === String(id) ? { ...i, status: newStatus } : i
-    );
-    localStorage.setItem("ideas", JSON.stringify(updated));
-    setIdea((prev) => ({ ...prev, status: newStatus }));
-    showToast(
-      newStatus === "APPROVED"
-        ? "✅ Idea approved successfully!"
-        : "❌ Idea rejected."
-    );
-  };
+const updateStatus = (newStatus) => {
+  const formattedStatus = newStatus.toUpperCase();  // ✅ force uppercase
+
+  const savedIdeas = JSON.parse(localStorage.getItem("ideas")) || [];
+  const updated = savedIdeas.map((i) =>
+    String(i.id) === String(id)
+      ? { ...i, status: formattedStatus }
+      : i
+  );
+
+  localStorage.setItem("ideas", JSON.stringify(updated));
+  setIdea((prev) => ({ ...prev, status: formattedStatus }));
+
+  showToast(
+    formattedStatus === "APPROVED"
+      ? "✅ Idea approved successfully!"
+      : "❌ Idea rejected."
+  );
+};
 
   const showToast = (msg) => {
     setToast(msg);
