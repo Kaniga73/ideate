@@ -11,18 +11,17 @@ export default function Profile() {
   const [activeTab, setActiveTab] = useState("reviewed");
   const [ideas, setIdeas] = useState([]);
 
-  /* ✅ STATUS COUNTS */
-const pendingIdeas = ideas.filter(
-  (idea) => idea.status === "pending"
-);
+  const pendingIdeas = ideas.filter(
+    (idea) => idea.status?.toUpperCase() === "PENDING"
+  );
 
-const approvedIdeas = ideas.filter(
-  (idea) => idea.status === "approved"
-);
+  const approvedIdeas = ideas.filter(
+    (idea) => idea.status?.toUpperCase() === "APPROVED"
+  );
 
-const reviewedIdeas = ideas.filter(
-  (idea) => idea.status === "reviewed"
-);
+  const reviewedIdeas = ideas.filter(
+    (idea) => idea.status?.toUpperCase() === "REVIEWED"
+  );
 
   useEffect(() => {
     const savedIdeas =
@@ -30,7 +29,6 @@ const reviewedIdeas = ideas.filter(
     setIdeas(savedIdeas);
   }, []);
 
-  /* ✅ FILTER ONLY MY IDEAS */
   const myIdeas = ideas.filter(
     (idea) =>
       idea.author &&
@@ -42,6 +40,24 @@ const reviewedIdeas = ideas.filter(
     .map((w) => w[0])
     .join("")
     .toUpperCase();
+
+  // ✅ status badge helper
+  const statusClass = {
+    APPROVED: "status-badge--approved",
+    PENDING: "status-badge--pending",
+    REJECTED: "status-badge--rejected",
+  };
+
+  const renderStatusBadge = (status) => {
+    const key = status?.toUpperCase() || "PENDING";
+    return (
+      <span className={`status-badge ${statusClass[key] || "status-badge--pending"}`}
+        style={{ justifySelf: "start", width: "fit-content" }}
+      >
+        {key.charAt(0) + key.slice(1).toLowerCase()}
+      </span>
+    );
+  };
 
   return (
     <div className="profile-page">
@@ -84,138 +100,108 @@ const reviewedIdeas = ideas.filter(
 
         </aside>
 
-
         {/* RIGHT */}
         <main className="profile-main">
-       {/* Metrics */}
-       <div className="metrics-row">
+          {/* Metrics */}
+          <div className="metrics-row">
 
-  <div className="metric-card metric-blue">
-    <div>
-      <div className="metric-label">Pending Reviews</div>
-      <div className="metric-value">
-        {pendingIdeas.length}
-      </div>
-    </div>
-  </div>
+            <div className="metric-card metric-blue">
+              <div>
+                <div className="metric-label">Pending Reviews</div>
+                <div className="metric-value">{pendingIdeas.length}</div>
+              </div>
+            </div>
 
-  <div className="metric-card">
-    <div>
-      <div className="metric-label">Total Ideas</div>
-      <div className="metric-value">
-        {ideas.length}
-      </div>
-    </div>
-  </div>
+            <div className="metric-card">
+              <div>
+                <div className="metric-label">Total Ideas</div>
+                <div className="metric-value">{ideas.length}</div>
+              </div>
+            </div>
 
-  <div className="metric-card">
-    <div>
-      <div className="metric-label">My Submissions</div>
-      <div className="metric-value">
-        {myIdeas.length}
-      </div>
-    </div>
-  </div>
+            <div className="metric-card">
+              <div>
+                <div className="metric-label">My Submissions</div>
+                <div className="metric-value">{myIdeas.length}</div>
+              </div>
+            </div>
 
-</div>
-
+          </div>
 
           {/* TABLE */}
           <div className="tabs-card">
 
             <div className="tabs-nav">
-
               <button
-                className={`tab-btn ${
-                  activeTab === "reviewed" ? "active" : ""
-                }`}
+                className={`tab-btn ${activeTab === "reviewed" ? "active" : ""}`}
                 onClick={() => setActiveTab("reviewed")}
               >
                 Ideas I've Reviewed
               </button>
 
               <button
-                className={`tab-btn ${
-                  activeTab === "submissions" ? "active" : ""
-                }`}
+                className={`tab-btn ${activeTab === "submissions" ? "active" : ""}`}
                 onClick={() => setActiveTab("submissions")}
               >
                 My Submissions
               </button>
-
             </div>
-
 
             <div className="ideas-table">
 
-              <div className="ideas-table-head">
+              {/* ✅ Added Status column to header */}
+              <div className="ideas-table-head" style={{ gridTemplateColumns: "3fr 2fr 1fr 1fr" }}>
                 <div>Idea Title</div>
                 <div>Submitted By</div>
+                <div>Status</div>  {/* ✅ new */}
                 <div>Date</div>
               </div>
-
 
               {/* ALL IDEAS */}
               {activeTab === "reviewed" &&
                 ideas.map((idea, i) => (
-                  <div key={i} className="ideas-row">
+                  <div key={i} className="ideas-row" style={{ gridTemplateColumns: "3fr 2fr 1fr 1fr" }}>
                     <div>
-                      <div className="idea-title">
-                        {idea.title}
-                      </div>
-                      <div className="idea-branch">
-                        {idea.category || idea.department}
-                      </div>
+                      <div className="idea-title">{idea.title}</div>
+                      <div className="idea-branch">{idea.category || idea.department}</div>
                     </div>
 
-                    <div className="idea-submitter">
-                      {idea.author}
-                    </div>
+                    <div className="idea-submitter">{idea.author}</div>
 
-                    <div className="idea-date">
-                      {idea.postedAt || "—"}
-                    </div>
+                    {/* ✅ Status badge */}
+                    {renderStatusBadge(idea.status)}
+
+                    <div className="idea-date">{idea.postedAt || "—"}</div>
                   </div>
                 ))}
-
 
               {/* MY IDEAS ONLY */}
               {activeTab === "submissions" &&
                 myIdeas.map((idea, i) => (
-                  <div key={i} className="ideas-row">
+                  <div key={i} className="ideas-row" style={{ gridTemplateColumns: "3fr 2fr 1fr 1fr" }}>
                     <div>
-                      <div className="idea-title">
-                        {idea.title}
-                      </div>
-                      <div className="idea-branch">
-                        {idea.category || idea.department}
-                      </div>
+                      <div className="idea-title">{idea.title}</div>
+                      <div className="idea-branch">{idea.category || idea.department}</div>
                     </div>
 
-                    <div className="idea-submitter">
-                      {idea.author}
-                    </div>
+                    <div className="idea-submitter">{idea.author}</div>
 
-                    <div className="idea-date">
-                      {idea.postedAt || "—"}
-                    </div>
+                    {/* ✅ Status badge */}
+                    {renderStatusBadge(idea.status)}
+
+                    <div className="idea-date">{idea.postedAt || "—"}</div>
                   </div>
                 ))}
 
-
               {/* EMPTY STATE */}
-              {activeTab === "submissions" &&
-                myIdeas.length === 0 && (
-                  <div style={{ padding: 20 }}>
-                    No submissions yet.
-                  </div>
-                )}
+              {activeTab === "submissions" && myIdeas.length === 0 && (
+                <div style={{ padding: 20 }}>No submissions yet.</div>
+              )}
 
             </div>
           </div>
 
         </main>
-
       </div>
     </div>
   );
