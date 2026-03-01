@@ -1,4 +1,7 @@
-/* ── Ideas Table ── */
+/* ───────────────────────────── */
+/* Ideas Table Container */
+/* ───────────────────────────── */
+
 .ideas-table {
   display: flex;
   flex-direction: column;
@@ -9,10 +12,14 @@
   margin-top: 16px;
 }
 
+/* ───────────────────────────── */
+/* Table Grid Layout */
+/* ───────────────────────────── */
+
 .ideas-table-head,
 .ideas-row {
   display: grid;
-  grid-template-columns: 3fr 2fr 1fr 1fr; /* Idea Title | Submitted By | Status | Date */
+  grid-template-columns: 3fr 2fr 160px 120px;
   align-items: center;
   padding: 12px 16px;
   border-bottom: 1px solid #e2e8f0;
@@ -28,7 +35,10 @@
   background-color: #f8fafc;
 }
 
-/* ── Idea Info ── */
+/* ───────────────────────────── */
+/* Idea Info */
+/* ───────────────────────────── */
+
 .idea-title {
   font-weight: 600;
   color: #0f172a;
@@ -44,37 +54,55 @@
   font-weight: 500;
 }
 
-/* ── Status Badge ── */
+/* ───────────────────────────── */
+/* Status Column Fix */
+/* ───────────────────────────── */
+
+/* Prevent wrapper div from stretching */
+.ideas-row > div:nth-child(3),
+.ideas-table-head > div:nth-child(3) {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* ───────────────────────────── */
+/* Status Badge */
+/* ───────────────────────────── */
+
 .status-badge {
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: 6px;
-  display: inline-block;
-  text-align: center;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-/* Status colors */
+/* Status Colors */
+
 .status-badge--approved {
   background-color: #e8f5e9;
   color: #2e7d32;
-  border: 1px solid #2e7d3233;
+  border: 1px solid rgba(46, 125, 50, 0.2);
 }
 
 .status-badge--pending {
   background-color: #fff8e1;
   color: #f57f17;
-  border: 1px solid #f57f1733;
+  border: 1px solid rgba(245, 127, 23, 0.2);
 }
 
 .status-badge--rejected {
   background-color: #ffebee;
   color: #ef4444;
-  border: 1px solid #ef444433;
+  border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
-/* ── Admin Buttons ── */
+/* ───────────────────────────── */
+/* Admin Buttons */
+/* ───────────────────────────── */
+
 .ideas-row button {
   padding: 4px 8px;
   font-size: 12px;
@@ -95,20 +123,33 @@
   color: #fff;
 }
 
-/* Hover effect for buttons */
 .ideas-row button:hover {
   opacity: 0.85;
 }
 
-/* ── Responsive ── */
+/* ───────────────────────────── */
+/* Responsive */
+/* ───────────────────────────── */
+
 @media (max-width: 768px) {
   .ideas-table-head,
   .ideas-row {
-    grid-template-columns: 2fr 2fr 1fr 1fr; /* smaller columns on mobile */
+    grid-template-columns: 2fr 2fr max-content 1fr;
     font-size: 0.75rem;
   }
+}
+/* 🔥 FORCE status column to shrink */
+.ideas-table .ideas-row > div:nth-child(3) {
+  width: auto !important;
+  display: inline-flex !important;
+  justify-content: flex-start !important;
+}
 
-  .idea-branch {
-    display: none; /* hide category/branch on mobile */
-  }
+.ideas-table .ideas-table-head > div:nth-child(3) {
+  width: auto !important;
+}
+
+.status-badge {
+  width: auto !important;
+  display: inline-flex !important;
 }

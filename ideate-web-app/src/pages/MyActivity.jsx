@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import AdminNavbar from "../components/AdminNavbar";
-import "../Styles/Profile.css";
+import "../Styles/MyActivity.css";
 
 export default function MyActivity() {
   const user =
@@ -24,10 +24,10 @@ export default function MyActivity() {
   // Update idea status (Approve / Reject)
   const updateIdeaStatus = (index, newStatus) => {
     const updatedIdeas = [...ideas];
-    updatedIdeas[index].status = newStatus.toLowerCase();
+    updatedIdeas[index].status = newStatus.toUpperCase(); // ✅ fixed: was .toLowerCase()
     setIdeas(updatedIdeas);
     localStorage.setItem("ideas", JSON.stringify(updatedIdeas));
-    refreshIdeas(); // update metrics immediately
+    refreshIdeas();
   };
 
   // Filter ideas reviewed by this admin (optional)
@@ -35,11 +35,11 @@ export default function MyActivity() {
     (idea) => idea.reviewedBy === user.name
   );
 
-  // Metrics
+  // Metrics — ✅ fixed: normalize to uppercase before comparing
   const totalSubmissions = ideas.length;
-  const pendingCount = ideas.filter((i) => i.status === "pending").length;
-  const approvedCount = ideas.filter((i) => i.status === "approved").length;
-  const rejectedCount = ideas.filter((i) => i.status === "rejected").length;
+  const pendingCount = ideas.filter((i) => i.status?.toUpperCase() === "PENDING").length;
+  const approvedCount = ideas.filter((i) => i.status?.toUpperCase() === "APPROVED").length;
+  const rejectedCount = ideas.filter((i) => i.status?.toUpperCase() === "REJECTED").length;
 
   const initials = user.name
     .split(" ")
@@ -47,11 +47,12 @@ export default function MyActivity() {
     .join("")
     .toUpperCase();
 
-    const statusClass = {
-  approved: "status-badge--approved",
-  pending: "status-badge--pending",
-  rejected: "status-badge--rejected",
-};
+  // ✅ fixed: use UPPERCASE keys to match AdminIdeaDetails
+  const statusClass = {
+    APPROVED: "status-badge--approved",
+    PENDING: "status-badge--pending",
+    REJECTED: "status-badge--rejected",
+  };
 
   return (
     <div className="profile-page">
@@ -130,32 +131,35 @@ export default function MyActivity() {
 
                     <div className="idea-submitter">{idea.author}</div>
 
-                 <div className={`status-badge ${statusClass[idea.status.toLowerCase()] || ""}`}>
-  {idea.status.charAt(0).toUpperCase() + idea.status.slice(1)}
+                {/* AFTER — wrap it in a plain div so the grid cell is the wrapper, not the badge */}
+<div>
+  <div className={`status-badge ${statusClass[idea.status?.toUpperCase()] || ""}`}>
+    {idea.status
+      ? idea.status.charAt(0).toUpperCase() + idea.status.slice(1).toLowerCase()
+      : "Pending"}
 
-
-                      {/* Admin Approve/Reject buttons */}
-                      {user.role === "Administrator" && (
-                        <div style={{ display: "flex", gap: "5px", marginTop: "5px" }}>
-                          {idea.status !== "approved" && (
-                            <button
-                              onClick={() => updateIdeaStatus(i, "approved")}
-                              className="approve-btn"
-                            >
-                              Approve
-                            </button>
-                          )}
-                          {idea.status !== "rejected" && (
-                            <button
-                              onClick={() => updateIdeaStatus(i, "rejected")}
-                              className="reject-btn"
-                            >
-                              Reject
-                            </button>
-                          )}
-                        </div>
-                      )}
-                    </div>
+    {user.role === "Administrator" && (
+      <div style={{ display: "flex", gap: "5px", marginTop: "5px" }}>
+        {idea.status?.toUpperCase() !== "APPROVED" && (
+          <button
+            onClick={() => updateIdeaStatus(i, "APPROVED")}
+            className="approve-btn"
+          >
+            Approve
+          </button>
+        )}
+        {idea.status?.toUpperCase() !== "REJECTED" && (
+          <button
+            onClick={() => updateIdeaStatus(i, "REJECTED")}
+            className="reject-btn"
+          >
+            Reject
+          </button>
+        )}
+      </div>
+    )}
+  </div>
+</div>
 
                     <div className="idea-date">{idea.postedAt || "—"}</div>
                   </div>
