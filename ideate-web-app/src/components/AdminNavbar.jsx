@@ -66,9 +66,9 @@ export default function AdminNavbar({ user }) {
 
       {/* Right Side */}
       <div className="admin-navbar__right">
-        <div
+      <div
           className="admin-navbar__user"
-          onClick={() => navigate("/admin-profile")}
+          onClick={() => navigate("/my-activity")}
         >
           <div>
             <div className="admin-navbar__user-name">

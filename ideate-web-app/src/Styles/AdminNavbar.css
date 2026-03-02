@@ -127,3 +127,7 @@ display: flex;
     display: none;
   }
 }
+
+.admin-navbar__user {
+  cursor: pointer;
+}
