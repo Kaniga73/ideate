@@ -26,11 +26,8 @@ export default function LoginPage() {
 
     try {
       // ✅ fetch only by role
-      const response = await fetch(
-        `http://127.0.0.1:3001/users?role=${role}`
-      );
-
-      const users = await response.json();
+     const { default: db } = await import('../../db.json');
+const users = db.users.filter(user => user.role === role);
       console.log("Users from server:", users);
 
       // ✅ check manually
