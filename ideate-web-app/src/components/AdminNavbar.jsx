@@ -1,6 +1,6 @@
 import "../Styles/AdminNavbar.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import logo from "../assets/logo.png";
+import logo from "../assets/Logo.png";
 
 export default function AdminNavbar({ user }) {
   const navigate = useNavigate();
