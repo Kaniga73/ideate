@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import IdeaCard from "../components/IdeaCard";
 import "../Styles/EmployeeDashboard.css";
-import IdeateLogo from "../assets/IdeateLogo.png";
+import IdeateLogo from "../assets/Ideatelogo.png";
 
 // Default Ideas
 const DEFAULT_IDEAS = [
