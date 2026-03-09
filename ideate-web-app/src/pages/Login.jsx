@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../Styles/Login.css";
 import companyLogo from "../assets/companyLogo.png";
 import { useNavigate } from "react-router-dom";
+import db from "../../db.json";
 
 
 export default function LoginPage() {
@@ -26,8 +27,7 @@ export default function LoginPage() {
 
     try {
       // ✅ fetch only by role
-     const { default: db } = await import('../../db.json');
-const users = db.users.filter(user => user.role === role);
+  const users = db.users.filter(user => user.role === role);
       console.log("Users from server:", users);
 
       // ✅ check manually
