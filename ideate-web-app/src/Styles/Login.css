@@ -223,13 +223,6 @@ input:hover,input:active{
   }
 }
 
-/* ============================= */
-/* RESPONSIVE DESIGN */
-/* ============================= */
-
-/* ===================================== */
-/* FULL RESPONSIVE FIX (DO NOT REMOVE ABOVE CSS) */
-/* ===================================== */
 
 /* Fix main container */
 .page{
@@ -286,6 +279,8 @@ input:hover,input:active{
   .login-btn{
     width:100%;
     margin-left:0;
+    margin-bottom:25px;
+    margin-top: 20px;
   }
 
 }
