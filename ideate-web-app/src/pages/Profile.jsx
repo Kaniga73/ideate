@@ -150,7 +150,7 @@ export default function Profile() {
             <div className="ideas-table">
 
               {/* ✅ Added Status column to header */}
-              <div className="ideas-table-head" >
+              <div className="ideas-table-head" style={{ gridTemplateColumns: "3fr 2fr 1fr 1fr" }}>
                 <div>Idea Title</div>
                 <div>Submitted By</div>
                 <div>Status</div>  {/* ✅ new */}
@@ -160,7 +160,7 @@ export default function Profile() {
               {/* ALL IDEAS */}
               {activeTab === "reviewed" &&
                 ideas.map((idea, i) => (
-                  <div key={i} className="ideas-row" >
+                  <div key={i} className="ideas-row" style={{ gridTemplateColumns: "3fr 2fr 1fr 1fr" }}>
                     <div>
                       <div className="idea-title">{idea.title}</div>
                       <div className="idea-branch">{idea.category || idea.department}</div>

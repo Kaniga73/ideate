@@ -153,67 +153,103 @@
   opacity: 0.85;
 }
 
+
+
 /* ───────────────────────────── */
-/* 📱 MOBILE RESPONSIVE FIX */
+/* 📱 MOBILE RESPONSIVE (CENTERED CARD UI) */
 /* ───────────────────────────── */
 
 @media (max-width: 768px) {
 
-  /* ❌ Remove table layout */
+  /* Hide table header */
   .ideas-table-head {
     display: none;
   }
 
-  /* ✅ Convert row → card */
-  .ideas-row {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-
-    padding: 12px;
-    margin: 10px;
-    border-radius: 8px;
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-  }
-
-  /* Remove grid */
+  /* Remove grid layout */
   .ideas-table-head,
   .ideas-row {
     grid-template-columns: unset;
   }
 
-  /* Text adjustments */
-  .idea-title {
-    font-size: 14px;
+  /* Convert row → centered card */
+  .ideas-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;     /* ✅ CENTER */
+    justify-content: center;
+    text-align: center;      /* ✅ TEXT CENTER */
+
+    gap: 8px;
+    padding: 16px;
+    margin: 10px;
+
+    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
   }
 
-  .idea-submitter {
+  /* Each column block */
+  .ideas-row > div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;     /* ✅ CENTER */
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Title section */
+  .ideas-row > div:nth-child(1) {
+    gap: 2px;
+  }
+
+  /* Title */
+  .idea-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #0f172a;
+  }
+
+  /* Subtitle */
+  .idea-branch {
     font-size: 13px;
     color: #64748b;
   }
 
-  /* Status spacing */
-  .status-badge {
-    margin-top: 6px;
-    align-self: flex-start;
+  /* Author */
+  .idea-submitter {
+    font-size: 14px;
+    color: #334155;
   }
 
-  /* Buttons alignment */
+  /* Status */
+  .status-badge {
+    margin-top: 4px;
+    align-self: center;   /* ✅ center badge */
+  }
+
   .status-badge div {
     display: flex;
+    justify-content: center;
     gap: 6px;
-    flex-wrap: wrap;
   }
 
-  /* Prevent overflow */
+  /* Date */
+  .ideas-row > div:nth-child(4) {
+    font-size: 13px;
+    color: #94a3b8;
+    justify-content: right;
+  }
+
+  /* Buttons center */
+  .ideas-row button {
+    margin-top: 4px;
+  }
+
+  /* Prevent text overflow */
   .idea-title,
   .idea-submitter {
     word-break: break-word;
   }
-}
-
-/* 🚫 Remove horizontal scroll completely */
-body {
-  overflow-x: hidden;
 }
