@@ -1,6 +1,6 @@
 import "../Styles/AdminNavbar.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import logo from "../assets/logo.png";
+import logo from "../assets/Logo.png";
 
 export default function AdminNavbar({ user }) {
   const navigate = useNavigate();
@@ -66,9 +66,9 @@ export default function AdminNavbar({ user }) {
 
       {/* Right Side */}
       <div className="admin-navbar__right">
-        <div
+      <div
           className="admin-navbar__user"
-          onClick={() => navigate("/admin-profile")}
+          onClick={() => navigate("/my-activity")}
         >
           <div>
             <div className="admin-navbar__user-name">

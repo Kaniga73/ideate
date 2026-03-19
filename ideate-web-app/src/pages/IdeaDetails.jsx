@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "../Styles/IdeaDetailsView.css";
+import Swal from "sweetalert2";
+
 
 export default function IdeaDetails() {
   const { id } = useParams();
@@ -85,7 +87,13 @@ export default function IdeaDetails() {
     metrics[id] = { ...curr, upvoted: curr.upvoted || upvoted, pledge: newPledge, comments: curr.comments || comments };
     localStorage.setItem("ideaMetrics", JSON.stringify(metrics));
     setPledge(newPledge);
-    alert(`Pledged ${newPledge} hours/week successfully!`);
+    // show styled success alert for pledge
+    Swal.fire({
+      icon: "success",
+      title: "Pledge Updated",
+      text: `You have pledged ${newPledge} hours/week successfully!`,
+      confirmButtonColor: "#4ac7f5",
+    });
   };
 
   // Handle comment post
@@ -137,7 +145,15 @@ export default function IdeaDetails() {
 
   const handleFollowUpdates = () => {
     setIsFollowing(!isFollowing);
-    alert(isFollowing ? "Unfollowed updates" : "Following updates for this idea!");
+    // use sweet alert to show follow/unfollow status
+    Swal.fire({
+      icon: "success",
+      title: isFollowing ? "Unfollowed" : "Following",
+      text: isFollowing
+        ? "You will no longer receive updates for this idea."
+        : "You are now following updates for this idea!",
+      confirmButtonColor: "#4ac7f5",
+    });
   };
 
   const handleFavorite = () => {
