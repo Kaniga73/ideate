@@ -3,6 +3,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  overflow-x: hidden;
+}
 
 .profile-page {
   font-family: 'Inter', sans-serif;
@@ -202,7 +205,7 @@
 .ideas-table-head,
 .ideas-row {
   display: grid;
-  grid-template-columns: 2fr 1.5fr 1fr; /* 3 columns only */
+  grid-template-columns: 3fr 2fr 1fr 1fr; /* ✅ FIXED */
   padding: 12px 18px;
   align-items: center;
 }
@@ -277,4 +280,61 @@
   margin-top: 2px !important;   /* small neat gap */
   color: #94a3b8;
   line-height: 1.2;
+}
+/* ============================= */
+/* 📱 MOBILE RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 768px) {
+
+  .profile-layout {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  .profile-sidebar {
+    width: 100%;
+  }
+
+  .metrics-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tabs-nav {
+    overflow-x: auto;
+  }
+
+  .tab-btn {
+    flex: none;
+    white-space: nowrap;
+  }
+
+  .ideas-table-head {
+    display: none;
+  }
+
+  .ideas-row {
+    grid-template-columns: 1fr;
+    background: #ffffff;
+    border-radius: 10px;
+    margin: 10px 0;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+  }
+
+  .idea-title {
+    font-size: 15px;
+  }
+
+  .idea-submitter,
+  .idea-date {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 4px;
+  }
+
+  .status-badge {
+    margin-top: 6px;
+  }
 }

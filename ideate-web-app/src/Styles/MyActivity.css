@@ -15,14 +15,12 @@
 /* ───────────────────────────── */
 /* Table Grid Layout */
 /* ───────────────────────────── */
-
 .ideas-table-head,
 .ideas-row {
   display: grid;
-  grid-template-columns: 3fr 2fr 160px 120px;
+  grid-template-columns: 3fr 2fr 1.2fr 1fr; /* balanced */
   align-items: center;
   padding: 12px 16px;
-  border-bottom: 1px solid #e2e8f0;
 }
 
 .ideas-table-head {
@@ -33,6 +31,38 @@
 
 .ideas-row:hover {
   background-color: #f8fafc;
+}
+/* Title align left */
+.ideas-row > div:nth-child(1) {
+  text-align: left;
+}
+
+/* Author center */
+.ideas-row > div:nth-child(2) {
+  text-align: center;
+}
+
+/* Status center */
+.ideas-row > div:nth-child(3) {
+  display: flex;
+  justify-content: center;
+}
+
+/* Date right */
+.ideas-row > div:nth-child(4) {
+  text-align: right;
+}
+.ideas-table-head > div:nth-child(1) {
+  text-align: left;
+}
+
+.ideas-table-head > div:nth-child(2),
+.ideas-table-head > div:nth-child(3) {
+  text-align: center;
+}
+
+.ideas-table-head > div:nth-child(4) {
+  text-align: right;
 }
 
 /* ───────────────────────────── */
@@ -59,24 +89,20 @@
 /* ───────────────────────────── */
 
 /* Prevent wrapper div from stretching */
-.ideas-row > div:nth-child(3),
-.ideas-table-head > div:nth-child(3) {
+.ideas-row > div:nth-child(3) {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ───────────────────────────── */
 /* Status Badge */
 /* ───────────────────────────── */
 
-.status-badge {
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 6px;
-  display: inline-flex;
-  flex-direction: column;
-  gap: 4px;
+.status-badge div {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
 }
 
 /* Status Colors */
@@ -128,28 +154,66 @@
 }
 
 /* ───────────────────────────── */
-/* Responsive */
+/* 📱 MOBILE RESPONSIVE FIX */
 /* ───────────────────────────── */
 
 @media (max-width: 768px) {
+
+  /* ❌ Remove table layout */
+  .ideas-table-head {
+    display: none;
+  }
+
+  /* ✅ Convert row → card */
+  .ideas-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    padding: 12px;
+    margin: 10px;
+    border-radius: 8px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+  }
+
+  /* Remove grid */
   .ideas-table-head,
   .ideas-row {
-    grid-template-columns: 2fr 2fr max-content 1fr;
-    font-size: 0.75rem;
+    grid-template-columns: unset;
+  }
+
+  /* Text adjustments */
+  .idea-title {
+    font-size: 14px;
+  }
+
+  .idea-submitter {
+    font-size: 13px;
+    color: #64748b;
+  }
+
+  /* Status spacing */
+  .status-badge {
+    margin-top: 6px;
+    align-self: flex-start;
+  }
+
+  /* Buttons alignment */
+  .status-badge div {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  /* Prevent overflow */
+  .idea-title,
+  .idea-submitter {
+    word-break: break-word;
   }
 }
-/* 🔥 FORCE status column to shrink */
-.ideas-table .ideas-row > div:nth-child(3) {
-  width: auto !important;
-  display: inline-flex !important;
-  justify-content: flex-start !important;
-}
 
-.ideas-table .ideas-table-head > div:nth-child(3) {
-  width: auto !important;
-}
-
-.status-badge {
-  width: auto !important;
-  display: inline-flex !important;
+/* 🚫 Remove horizontal scroll completely */
+body {
+  overflow-x: hidden;
 }
