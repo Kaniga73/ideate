@@ -35,6 +35,7 @@ body {
 
 .idea-content {
   flex: 3;
+  width: 100%;
 }
 
 .idea-sidebar {
@@ -42,13 +43,14 @@ body {
   display: flex;
   flex-direction: column;
   gap: 22px;
-  align-items: center;
+   width: 100%;
 }
 
 @media (min-width: 1024px) {
   .idea-layout {
     flex-direction: row;
     align-items: flex-start;
+   
   }
 
   .idea-sidebar {
@@ -71,10 +73,10 @@ body {
 }
 
 .side-card {
-  min-width: 260px;
-  max-width: 420px;
+ 
   width: 100%;
   cursor: pointer;
+   max-width: 100%;
   transition: box-shadow 0.2s, transform 0.2s;
 }
 
@@ -90,7 +92,7 @@ body {
 @media (max-width: 1023px) {
   .side-card {
     width: 100%;
-    max-width: 600px;
+    max-width: 100px;
   }
 }
 
