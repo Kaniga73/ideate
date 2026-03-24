@@ -62,53 +62,55 @@ const Submit = () => {
   return (
     <div className="submit-container">
 
-      {/* Back Button */}
-      <div className="back-btn-outside" onClick={() => navigate(-1)}>
-        ←
-      </div>
+    
 
       <div className="submit-card">
 
-        <h2 className="greatminds-text">Submit New Idea</h2>
+  <form onSubmit={handleSubmit}>
 
-        <form onSubmit={handleSubmit}>
+    {/* ✅ Back Button INSIDE FORM */}
+    <div className="back-btn-outside" onClick={() => navigate(-1)}>
+      ←
+    </div>
 
-          <div className="form-group">
-            <label>Idea Title</label>
-            <input
-              type="text"
-              placeholder="Enter idea title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </div>
+    <h2 className="greatminds-text">Submit New Idea</h2>
 
-          <div className="form-group">
-            <label>Category</label>
-            <input
-              type="text"
-              placeholder="Enter category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            />
-          </div>
+    <div className="form-group">
+      <label>Idea Title</label>
+      <input
+        type="text"
+        placeholder="Enter idea title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+    </div>
 
-          <div className="form-group">
-            <label>Description</label>
-            <textarea
-              rows="8"
-              placeholder="Describe your idea..."
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </div>
+    <div className="form-group">
+      <label>Category</label>
+      <input
+        type="text"
+        placeholder="Enter category"
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+      />
+    </div>
 
-          <button type="submit" className="submit-btn">
-            Submit Idea
-          </button>
+    <div className="form-group">
+      <label>Description</label>
+      <textarea
+        rows="8"
+        placeholder="Describe your idea..."
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
+    </div>
 
-        </form>
-      </div>
+    <button type="submit" className="submit-btn">
+      Submit Idea
+    </button>
+
+  </form>
+</div>
     </div>
   );
 };

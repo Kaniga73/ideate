@@ -8,31 +8,43 @@
   background-color: #ffffff;
 }
 /* Card */
+
 .submit-card {
-  position: relative;
-  width: 750px;         /* Increased width */
-  min-height: 550px;    /* Increased height */
+  position: relative; 
+  width: 750px;
+  min-height: 550px;
   background: #f7fbfd;
-  padding: 50px 45px;   /* More inner spacing */
+  padding: 50px 45px;
   border-radius: 12px;
   box-shadow: 0 6px 15px #d1d4d4;
 }
-/* Back Button */
+
+/* Back Button INSIDE card */
+/* Make form the positioning parent */
+form {
+  position: relative;
+  padding-top: 50px; /* space for button */
+}
+
+/* Back button inside form */
 .back-btn-outside {
   position: absolute;
-  top: 30px;
-  left: 40px;
-  font-size: 24px;
+  top: -35px;
+  left: 1px;
+  font-size: 36px;   /* bigger */
+  padding: 8px 14px;
   cursor: pointer;
   color: #555;
+  border-radius: 8px;
   transition: 0.2s ease;
 }
 
+/* Hover */
 .back-btn-outside:hover {
   color: #4ac7f5;
-  transform: translateX(-3px);
+  background-color: rgba(74, 199, 245, 0.1);
+  transform: scale(1.1);
 }
-
 /* Title */
 .greatminds-text {
   text-align: center;
@@ -79,9 +91,8 @@
 /* Submit Button */
 .submit-btn {
   display: block;
-  width: 180px;          /* fixed button size */
-  margin-top: 20px;
-  margin-left: auto;     /* pushes button to right */
+  width: min(180px, 100%);  
+  margin: 20px auto 0;      
   padding: 12px;
   background: #4ac7f5;
   color: white;
@@ -90,6 +101,7 @@
   cursor: pointer;
   transition: 0.3s ease;
   font-weight: 500;
+  text-align: center;       
 }
        .submit-btn:hover { 
         background: #6fd4f8;
